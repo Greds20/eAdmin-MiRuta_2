@@ -1,0 +1,1422 @@
+/*//////////////////////////////////////////////////////////////////
+[ FONT ]*/
+
+@font-face {        /*   <-------    */
+  font-family: Bahnschrift;
+  src: url('fonts/bahnschrift/BAHNSCHRIFT.TTF') format('truetype'); 
+}
+
+@font-face {      /*   <-------    */
+  font-family: SegoeUI;
+  src: url('fonts/segoe-ui/SEGOEUI.TTF'); 
+}
+
+@font-face {      /*   <-------    */
+  font-family: SegoeUIB;
+  src: url('fonts/segoe-ui/SEGOEUIB.TTF'); 
+}
+
+@font-face {      /*   <-------    */
+  font-family: RalewayR;
+  src: url('fonts/raleway/Raleway-Regular.ttf'); 
+}
+
+@font-face {      /*   <-------    */
+  font-family: RalewaySB;
+  src: url('fonts/raleway/Raleway-SemiBold.ttf'); 
+}
+
+@font-face {        /*   <-------    */
+  font-family: CRR;
+  src: url('fonts/cabo-rounded/Cabo-Rounded-Regular.otf'); 
+}
+
+
+/*//////////////////////////////////////////////////////////////////
+[ RESTYLE TAG ]*/
+
+* {                               /*   <-------    */
+	margin: 0px; 
+	padding: 0px; 
+	box-sizing: border-box;
+}
+
+body, html {                        /*   <-------    */
+	height: 100vh;
+  min-height: 100vh;
+	font-family: RalewayR, sans-serif;
+}
+
+/*---------------------------------------------*/
+a {                         /*   <-------    */
+  /*line-height: 1.7;*/
+	margin: 0px;
+	transition: all 0.4s;
+	-webkit-transition: all 0.4s;
+  -o-transition: all 0.4s;
+  -moz-transition: all 0.4s;
+}
+
+a:focus {           /*   <-------    */
+	outline: none !important;    
+}
+
+a:hover {         /*   <-------    */
+  color: #4b8bf4;
+  text-decoration-color: #4b8bf4;
+  text-decoration-style: solid;
+}
+
+/*---------------------------------------------*/
+h1,h2,h3,h4,h5,h6 {
+	margin: 0px;
+}
+
+ul, li {
+	margin: 0px;
+	list-style-type: none;
+}
+
+
+/*---------------------------------------------*/
+input {
+	outline: none;
+	border: none;
+}
+
+textarea {
+  outline: none;
+  border: none;
+}
+
+textarea:focus, input:focus {
+  border-color: transparent !important;
+}
+
+input:focus::-webkit-input-placeholder { color:transparent; }
+input:focus:-moz-placeholder { color:transparent; }
+input:focus::-moz-placeholder { color:transparent; }
+input:focus:-ms-input-placeholder { color:transparent; }
+
+textarea:focus::-webkit-input-placeholder { color:transparent; }
+textarea:focus:-moz-placeholder { color:transparent; }
+textarea:focus::-moz-placeholder { color:transparent; }
+textarea:focus:-ms-input-placeholder { color:transparent; }
+
+input::-webkit-input-placeholder { color: #999999; }
+input:-moz-placeholder { color: #999999; }
+input::-moz-placeholder { color: #999999; }
+input:-ms-input-placeholder { color: #999999; }
+
+textarea::-webkit-input-placeholder { color: #999999; }
+textarea:-moz-placeholder { color: #999999; }
+textarea::-moz-placeholder { color: #999999; }
+textarea:-ms-input-placeholder { color: #999999; }
+
+/*---------------------------------------------*/
+button {                    /*   <-------    */
+	outline: none !important;
+	border: none;
+	background: transparent;
+}
+
+button:hover {          /*   <-------    */
+	cursor: pointer;
+}
+
+iframe {
+	border: none !important;
+}
+
+
+/*//////////////////////////////////////////////////////////////////
+[ Login ]*/
+
+.limiter {                        /*   <-------    */
+  width: 100%;
+  margin: 0 auto;
+}
+
+.container-login {             /*   <-------    */
+  width: 100%;  
+  min-height: 100vh;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  padding: 15px;
+  background-color: #EEEEEE;
+}
+
+.wrap-login {                  /*   <-------    */
+  background: #fff;
+  overflow: hidden;
+
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  align-items: stretch;
+  padding: 0px 0px 0px 0px;
+  box-shadow: 0px 0px 15px gray;
+}
+
+.same_margin{
+  margin-bottom: 30px;
+}
+
+/*------------------------------------------------------------------
+[  ]*/
+.login-form-title{                /*   <-------    */
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  align-content: center;
+  padding: 0px 0px 0px 0px;
+  color: #4B8BF4;
+}
+
+.login-form-title-text{           /*   <-------    */
+  display: flex;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -moz-box;
+  display: -ms-flexbox;
+  flex-wrap: wrap;
+  max-height: 70px;
+}
+
+.login-form-titleline{           /*   <-------    */
+  background: #4B8BF4;
+  height: 5px;
+  border-radius: 2px;
+  margin-bottom: 3px;
+}
+
+.login-form-titletext{            /*   <-------    */
+  font-family: Cabo Rounded Regular;
+  font-size: 100px;
+}
+
+.login-form-titletext-e{        /*   <-------    */
+  font-family: Cabo Rounded Regular;
+  font-size: 50px;
+  line-height: 0.65;
+}
+
+
+/*------------------------------------------------------------------
+[  ]*/
+.login-descripcion {          /*   <-------    */
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  /*width: 316px;*/
+  background: #4B8BF4;
+  text-align: center;
+  justify-content: space-around;
+}
+
+.login-descripcion img {      /*   <-------    */
+  width: 220px;
+  height: 220px;
+}
+
+.login-desc_text{         /*   <-------    */
+  font-family: Bahnschrift;
+  font-size: 24px;
+  color: #fff; 
+  width: 220px;
+  line-height: 35px;
+}
+
+.padding-panels{
+  padding: 50px 80px 50px 80px;
+}
+
+/*------------------------------------------------------------------
+[  ]*/
+
+.login-text{          /*   <-------    */
+  display: block;
+  text-align: center;
+}
+
+.login-form-text {          /*   <-------    */
+  font-family: RalewayR;
+  font-size: 21px;
+  color: #232323;
+}
+
+.login-form-ref{
+  font-family: Segoe UI;
+  font-size: 21px;
+  color: #232323;
+  text-decoration-color: #232323;
+  text-decoration-style: solid;
+}
+
+/*---------------------------------------------*/
+.input-image{             /*   <-------    */
+  background: #4B8BF4;
+  height:50px; 
+  width:50px;
+}
+
+
+.wrap-input {             /*   <-------    */
+  display: flex;
+  position: relative;
+  width: 100%;
+  z-index: 1;
+}
+
+.input {              /*   <-------    */
+  font-family: Bahnschrift;
+  font-size: 20px;
+  line-height: 1.5;
+  color: #4b8bf4;
+
+  display: block;
+  width: 400px;
+  background: #F2F2F2;
+  height: 50px;
+  padding: 0 20px 0 20px;
+}
+
+.input::placeholder {       /*   <-------    */
+  color: #4b8bf4;
+}
+
+
+/*------------------------------------------------------------------
+[ Focus ]*/
+.symbol-input {
+  font-size: 15px;
+
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: flex;
+  align-items: center;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  padding-left: 35px;
+  pointer-events: none;
+  color: #666666;
+
+  -webkit-transition: all 0.4s;
+  -o-transition: all 0.4s;
+  -moz-transition: all 0.4s;
+  transition: all 0.4s;
+}
+
+.symbol-input {
+  color: #57b846;
+  padding-left: 28px;
+}
+
+/*------------------------------------------------------------------
+[ Button ]*/
+.container-login-form-btn {         /*   <-------    */
+  width: 100%;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.login-form-btn {             /*   <-------    */
+  font-family: Bahnschrift;
+  font-size: 20px;
+  line-height: 1.5;
+  color: #fff;
+  text-transform: uppercase;
+
+  width: 100%;
+  height: 50px;
+  background: #4B8BF4;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0 25px;
+
+  -webkit-transition: all 0.4s;
+  -o-transition: all 0.4s;
+  -moz-transition: all 0.4s;
+  transition: all 0.4s;
+}
+
+.login-form-btn:hover {         /*   <-------    */
+  background: #2356A8;
+}
+
+
+
+
+/*--------------------------------------------------------------
+[ Inicio ]*/
+
+
+.limiterLoged {                        /*   <-------    */
+  width: 100%;
+  min-height: 100vh;
+  margin: 0 auto;
+}
+
+/*----------------------------------------------------*/
+
+
+.horizontalDiv {              /*   <-------    */
+  display: flex;
+  height: 100vh;
+}
+
+.verticalDiv {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  min-height: 100%;
+}
+
+.menuVert ul li a{                 /*   <-------    */
+  display: inline-block;
+}
+
+.menuVert ul li a img{                 /*   <-------    */
+  width: 62px;
+  height: 62px;
+}
+
+.menuVert {
+  min-height: 100%;
+  height: 100%;
+  background: #0064FE;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.menuHori {
+  display: flex;
+  background: #FFFFFF;
+  padding: 10px 25px 10px 25px;
+  justify-content: space-between;
+  box-shadow: 0px 0px 5px gray;
+  position: relative;
+  z-index: 1;
+}
+
+.routeDiv{
+  display: flex; 
+  align-items: center;
+  height: 40px;
+}
+
+.routeDiv img{
+  height: 100%;
+}
+
+.routeDiv a{
+  font-family: RalewayR;
+  color: #4d91ff;
+  margin: 0px 0px 0px 10px;
+  text-decoration: none;
+}
+
+.routeDiv span{
+  font-family: RalewayR;
+  color: #4d91ff;
+  margin: 0px 0px 0px 10px;
+  text-decoration: none;
+}
+
+.menuHoriTextN1{
+  font-size: 35px;
+}
+
+.menuHoriTextN2{
+  font-size: 28px;
+}
+
+.menuHoriTextN3{
+  font-size: 22px;
+}
+
+.fontSystemxWarning{
+  display: flex;
+  height: 40px;
+  align-items: center;
+}
+
+.fontSystemxWarning h1{
+  font-family: CRR;
+  color: #4d91ff;
+  font-size: 50px;
+  height: 35px;
+  margin-left: 10px;
+}
+
+.fontSystemxWarning a{
+  height: 100%;
+  width: 40px;
+}
+
+.fontSystemxWarning a img{
+  height: 100%;
+  width: 100%;
+}
+
+
+.textHover{
+  position: relative;
+  font-size:20px;
+  font-family: helvetica, arial, sans-serif;
+}
+
+.textHover > span{
+  position: relative;
+  display:none;
+}
+
+.textHover:hover > span{
+  position: absolute;
+  top: 120%;
+  right: -100%;
+  display:block;
+  background:#464646;
+  color:white;
+  padding:3px 10px 3px 10px;
+  text-align: center;
+  font-size: 16px;
+  font-family: Bahnschrift;
+}
+
+.textHover:hover > span:after {
+  bottom: 100%;
+  right: 50%;
+  border: solid transparent;
+  content: " ";
+  height: 0;
+  width: 0;
+  position: absolute;
+  pointer-events: none;
+  border-color: rgba(136, 183, 213, 0);
+  border-bottom-color: #464646;
+  border-width: 6px;
+  margin-top: -6px;
+}
+
+/*--------------------------------------------------------------
+[ Inicio/Gestionar Inventario ]*/
+
+.menuMetro{
+  display: flex;
+  background: #EEEEEE;
+  height: 100%;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  flex-direction: column;
+}
+
+.menuMetro a{
+  margin: 40px 20px 40px 20px;
+  display: inline-block;
+}
+
+.inicioBoton{
+  height: 300px; 
+  width: 550px; 
+  box-shadow: 1px 1px 8px gray; 
+  border-radius: 26px;
+}
+
+
+/*--------------------------------------------------------------
+[ Gestionar POIs ]*/
+.contendLimiter{
+  background: #EEEEEE;
+  display: flex;
+  min-height: 100%;
+  flex-wrap: wrap;
+  flex-direction: row;
+  justify-content: space-around;
+  align-content: center;
+  padding-top: 30px;
+  padding-bottom: 30px;
+}
+
+.panelContenido{
+  background: #ffffff;
+  box-shadow: 1px 1px 8px gray; 
+  padding: 0px 30px 0px 30px;
+  display: flex;
+  flex-direction: column;
+  height: min-content;
+}
+
+.panelBotones{
+  display: flex;
+  flex-direction: row;
+  height: 55px;
+  border-bottom-style: solid;
+  border-bottom-color: rgba(77,145,255,0.32);
+  margin-bottom: 5px;
+}
+
+.panelBotones a{
+  text-decoration: none;
+  width: 28%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;  
+}
+
+.panelBotonesActived{
+  border-bottom-style: solid;
+  border-bottom-color: #2356a8;
+}
+
+.panelBotonesActived span{
+  font-family: SegoeUIB;
+  color: #242424;
+  font-size: 22px;
+}
+
+.panelBotonesInactived span{
+  font-family: SegoeUI;
+  color: #242424;
+  font-size: 22px;
+}
+
+
+
+/*--------------------------------------------------------------
+[ Gestionar POIs-> Agregar ]*/
+
+.inputSimple{
+  height: 38px;
+  width: 100%;
+  background: #f2f2f2;
+  font-size: 18px;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+.panelContenido h3{
+  font-family: Bahnschrift;
+  color: #242424;
+  font-size: 23px;
+  border-bottom-style: solid;
+  border-bottom-color: rgba(77,145,255,0.51);
+  border-bottom-width: 1px;
+  margin-bottom: 10px;
+}
+
+.divForm{
+  padding: 10px 20px 0px 20px;
+}
+
+.divForm form{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.rowsForm{
+  width: 48%;
+  margin-bottom: 20px;
+}
+
+.inputSimple::placeholder {       /*   <-------    */
+  font-size: 18px;
+}
+
+.monoDiv{
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.monoDivSep{
+  width: 100%;
+}
+
+.divBottomForm{
+  display: flex;
+  justify-content: center;
+}
+
+.div2BottomForm{
+  display: flex;
+  justify-content: center;
+}
+
+.formAddPoiBtn{
+  font-family: Bahnschrift;
+  background: #4d91ff;
+  width: 30%;
+  color: #FFFFFF;
+  font-size: 20px;
+  border-radius: 8px;
+  padding: 7px 0px 7px 0px;
+  margin-top: 5px;
+}
+
+.div2InputxButton {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.div2InputxButton div{
+  height: 100%;
+}
+
+.div2InputxButton a{
+  height: 86px;
+  display: flex;
+  border-radius: 10px;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+}
+
+.div2InputxButton img{
+  height: 50%;
+}
+
+.buttonBlue{
+  background: #4587F2;
+}
+
+/*--------------------------------------------------------------
+[ Gestionar POIs-> Agregar-> Combobox]*/
+
+.select {
+  height: 38px;
+  font-size: 20px;
+  font-family: Bahnschrift;
+  font-weight: 700;
+  color: #444;
+  line-height: 1.3;
+  padding: .3em 1.4em .5em .8em;
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+  border: 1px solid #aaa;
+  box-shadow: 0 1px 0 1px rgba(0,0,0,.04);
+  border-radius: .5em;
+  -moz-appearance: none;
+  -webkit-appearance: none;
+  appearance: none;
+  background-color: #fff;
+  background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23007CB2%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E'),
+    linear-gradient(to bottom, #ffffff 0%,#e5e5e5 100%);
+  background-repeat: no-repeat, repeat;
+  /* arrow icon position (1em from the right, 50% vertical) , then gradient position*/
+  background-position: right .7em top 50%, 0 0;
+  /* icon size, then gradient */
+  background-size: .65em auto, 100%;
+}
+/* Hide arrow icon in IE browsers */
+.select::-ms-expand {
+  display: none;
+}
+/* Hover style */
+.select:hover {
+  border-color: #888;
+}
+/* Focus style */
+.select:focus {
+  border-color: #aaa;
+  /* It'd be nice to use -webkit-focus-ring-color here but it doesn't work on box-shadow */
+  box-shadow: 0 0 1px 3px rgba(59, 153, 252, .7);
+  box-shadow: 0 0 0 3px -moz-mac-focusring;
+  color: #222; 
+  outline: none;
+}
+
+/* Set options to normal weight */
+.select option {
+  font-weight:normal;
+}
+
+/* Support for rtl text, explicit support for Arabic and Hebrew */
+*[dir="rtl"] .select, :root:lang(ar) .select, :root:lang(iw) .select {
+  background-position: left .7em top 50%, 0 0;
+  padding: .6em .8em .5em 1.4em;
+}
+
+/* Disabled styles */
+.select:disabled, .select[aria-disabled=true] {
+  color: graytext;
+  background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22graytext%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E'),
+    linear-gradient(to bottom, #ffffff 0%,#e5e5e5 100%);
+}
+
+.select:disabled:hover, .select[aria-disabled=true] {
+  border-color: #aaa;
+}
+
+/*--------------------------------------------------------------
+[ Gestionar POIs-> Agregar-> Seleccionar imagen ]*/
+
+.divReviewerImg{
+  width: 100%; 
+  height: 200px; 
+  border-style: solid; 
+  border-color: #e3e3e3; 
+  border-width: 1px;
+  background: #f2f2f2;
+}
+
+.inputFile{
+  font-family: Bahnschrift;
+  color: #242424;
+  font-size: 20px;
+  height: 38px;
+  width: 100%;
+  background: #f2f2f2;
+}
+
+/*--------------------------------------------------------------
+[ Gestionar POIs-> Agregar-> Text area ]*/
+
+.textarea{
+  resize: none;
+  background: #f2f2f2;
+  width: 100%;
+  font-size: 18px;
+  padding: 8px 8px 8px 8px;
+}
+
+/*--------------------------------------------------------------
+[ Gestionar POIs-> Agregar-> Combobox con checkbox ]*/
+
+.multiselect {
+  width: 200px;
+}
+
+.selectBox {
+  position: relative;
+}
+
+.selectBox select {
+  width: 100%;
+  font-weight: bold;
+}
+
+.overSelect {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+}
+
+#checkboxes {
+  display: none;
+  border: 1px #dadada solid;
+}
+
+#checkboxes label {
+  display: block;
+}
+
+#checkboxes label:hover {
+  background-color: #1e90ff;
+}
+
+/*--------------------------------------------------------------
+[ Gestionar POIs-> Modificar ]*/
+
+.divInputxButton {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  height: 38px;
+}
+
+.divInputxButton a{
+  height: 100%;
+}
+
+.divInputxButton img{
+  height: 100%;
+}
+
+.divInputxButton input{
+  height: 100%;
+  background: #f2f2f2;
+  font-size: 18px;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+.divCheckSpan{
+  display: flex;
+  align-items: center;
+  padding-left: 10px;
+  height: 38px;
+}
+
+.divCheckSpan span{
+  font-family: Bahnschrift;
+  color: #242424;
+  font-size: 23px;
+}
+/*--------------------------------------------------------------
+[ Gestionar POIs-> Modificar -> Buscar ]*/
+
+.panelSecundario{
+  position: absolute; 
+  background: #FFFFFF;
+
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 40px 25px 0px 25px;
+}
+
+.absoluteContend{
+  position: relative; 
+  height: 100%;
+  overflow-y: auto;
+}
+
+.divOscurecer{
+  background: #000000;
+  opacity: 0.5;
+
+  position: absolute; 
+  width: 100%;
+  height: 100%;
+}
+
+.panelSecInterior{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.divRowUnico{
+  width: 400px;
+  margin-bottom: 20px;
+}
+
+.divRowUnico h3{
+  font-family: Bahnschrift;
+  color: #242424;
+  font-size: 23px;
+  border-bottom-style: solid;
+  border-bottom-color: rgba(77,145,255,0.51);
+  border-bottom-width: 1px;
+  margin-bottom: 10px;
+}
+
+.divRowUnico input{
+  background: #f2f2f2;
+  font-size: 18px;
+  padding-left: 10px;
+  padding-right: 10px;
+  width: 100%;
+  height: 38px;
+}
+
+.divSecScroll{
+  height: 237px;
+  overflow-y: scroll;
+  background: #f2f2f2;
+  width: 100%;
+}
+
+.encontrados li{
+  padding-left: 12px;
+  font-family: Bahnschrift;
+  font-size: 15px;
+  min-height: 30px;
+  border-bottom-style: solid;
+  border-bottom-width: 1px;
+  border-bottom-color: #c1c1c1;
+  line-height: 30px;
+}
+
+.itemSeleccionado{
+  background: #2356A8;
+  color: #ffffff;
+}
+
+.secundaryButton{
+  font-family: Bahnschrift;
+  text-decoration: none;
+  justify-content: center;
+  background: #2356A8;
+  width: 30%;
+  color: #FFFFFF;
+  font-size: 18px;
+  border-radius: 8px;
+  padding: 6px 0px 6px 0px;
+  margin-top: 5px;
+  text-align: center;
+}
+
+.atrasButton{
+  font-family: Bahnschrift;
+  text-decoration: none;
+  background: #FF0000;
+  width: 30%;
+  color: #ffffff;
+  font-size: 20px;
+  border-radius: 8px;
+  padding: 6px 0px 6px 0px;
+  margin-top: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/*--------------------------------------------------------------
+[ Gestionar POIs-> Consultar ]*/
+
+.dosColumnas{
+  width: 50%;
+  padding: 0px 10px 0px 10px;
+}
+
+.divScroll{
+  height: 120px;
+  overflow-y: scroll;
+  background: #f2f2f2;
+  width: 100%;
+}
+
+.divScrollAll{
+  max-height: calc(100% - 20px);
+  margin-bottom: 20px;
+  overflow-y: scroll;
+  background: #f2f2f2;
+  width: 100%;
+  height: 100%;
+}
+
+
+/*--------------------------------------------------------------
+[ Gestionar Factor -> Agregar/Modificar ]*/
+.divFormTable{
+  padding: 10px 20px 0px 20px;
+}
+
+.divFormTable form{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.addxDelet{
+  display: flex;
+  height: 34px;
+}
+
+.addxDelet li{
+  height: 100%;
+  margin-left: 8px;
+}
+
+.addxDelet img{
+  height: 100%;
+}
+
+.monoDiv_right{
+  display: flex;
+  justify-content: end;
+}
+
+.monoDiv_between{
+  display: flex;
+  justify-content: space-between;
+}
+
+.textH2Row{
+  display: flex;
+}
+
+.textH2Row h2{
+  font-family: Bahnschrift;
+  color: #5d41fa;
+  font-size: 27px;
+}
+
+.tableStyle{
+  width: 100%;
+  border-bottom-style: solid;
+  border-bottom-width: 1px;
+  border-bottom-color: #5d41fa;
+  margin-bottom: 30px;
+}
+
+.theadStyle{
+  background: #5d41fa;
+}
+
+.theadStyle tr th{
+  width: 16%;
+  text-align: left;
+  font-family: Bahnschrift;
+  color: #ffffff;
+  font-size: 23px;
+  height: 40px;
+  padding-left: 15px;
+}
+
+.tbodyStyle tr th{
+  width: 16%;
+  height: 45px;
+
+  border-style: solid;
+  border-width: 1px;
+  border-color: #d9d9d9;
+
+  font-family: RalewayR;
+  color: #2f2f2f;
+  font-size: 16px;
+}
+
+.tableScroll{
+  max-height: 225px;
+  overflow-y: auto;
+}
+
+.tbodyStyle tr th input[type=text]{
+  width: 100%;
+  height: 100%;
+
+  font-size: 18px;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+.divSecScrollErrors{
+  max-height: 237px;
+  overflow-y: scroll;
+  background: #f2f2f2;
+  width: 100%;
+}
+
+.linkInTable{
+  display: flex;
+  height: 100%;
+  align-items: center;
+  justify-content: center;
+}
+
+.linkInTable img{
+  max-height: 80%;
+}
+
+/*--------------------------------------------------------------
+[ Gestionar Factor-PoI -> Emparejar ]*/
+
+.scrollFacPoi{
+  width: 100%;
+  margin-bottom: 20px;
+  height: 500px;
+  display: flex;
+  max-height: 500%;
+  overflow-y: auto;
+  flex-direction: column;
+}
+
+.scrollFacPoi h1{
+  font-family: RalewayR;
+  color: #2f2f2f;
+  font-size: 30px;
+  text-align: center;
+  width: 100%;
+}
+
+.scrollFacPoih1{
+  justify-content: center;
+}
+
+
+/*--------------------------------------------------------------
+[ Gestionar Factor-PoI -> Modificar ]*/
+
+.twoColOneRow{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  width: 100%;
+}
+
+
+/*--------------------------------------------------------------
+[ Log ]*/
+.monoDivButton{
+  display: flex;
+  justify-content: flex-start;
+}
+
+.downloadButton{
+  height: 34px;
+}
+
+.downloadButton img{
+  height: 100%;
+}
+
+.divFormNoButtons{
+  padding: 30px 20px 30px 20px;
+}
+
+.divFormNoButtons form{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.dateStyle{
+  height: 38px;
+  width: 100%;
+  background: #f2f2f2;
+  padding-left: 10px;
+  padding-right: 10px;
+  font-family: RalewayR;
+}
+
+.AButtonwText{
+  font-family: Bahnschrift;
+  background: #4d91ff;
+  width: 30%;
+  color: #FFFFFF;
+  font-size: 20px;
+  border-radius: 8px;
+  padding: 7px 0px 7px 0px;
+  margin-top: 5px;
+  text-align: center;
+  text-decoration: none;
+}
+
+
+/*--------------------------------------------------------------
+[ Perfil ]*/
+.divEmailsScroll{
+  height: 100px;
+  overflow-y: scroll;
+  background: #f2f2f2;
+  width: 94%;
+}
+
+.addEmail{
+  width: 35px;
+  height: 35px;
+}
+
+.addEmail img{
+  height: 100%;
+}
+
+.divScrollxAdd{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.titleH3Form{
+  text-align: center;
+}
+
+.perfilPanel{
+  position: relative;
+}
+
+.perfilPanel > div{
+  position: relative;
+  display:none;
+}
+
+.perfilPanel > div span{
+  font-size: 13px;
+  font-family: Bahnschrift;
+  color:white;
+}
+
+.perfilPanel > div h3{
+  font-size: 16px;
+  color:white;
+  border-bottom-color: #fff;
+  border-bottom-style: solid;
+  border-bottom-width: 1px;
+  text-align: center;
+  height: 26px;
+  margin-bottom: 10px;
+  font-family: Bahnschrift;
+}
+
+.perfilPanel:hover > div{
+  position: absolute;
+  top: 20%;
+  right: -390%;
+  display: flex;
+  background:#464646;
+  padding:15px 15px 15px 15px;
+  z-index: 2;
+  flex-direction: column;
+  max-width: 230px;
+}
+
+.perfilPanel:hover > div:after {
+  bottom: 80%;
+  right: 100%;
+  border: solid transparent;
+  content: " ";
+  height: 0;
+  width: 0;
+  position: absolute;
+  pointer-events: none;
+  border-color: rgba(136, 183, 213, 0);
+  border-right-color: #464646;
+  border-width: 6px;
+  margin-top: -6px;
+}
+
+
+/*------------------------------------------------------------------
+[ Responsive ]*/
+
+@media (max-width: 992px) {
+  .wrap-login {
+    padding: 177px 90px 33px 85px;
+  }
+
+  .login-pic {
+    width: 35%;
+  }
+
+  .login-form {
+    width: 50%;
+  }
+}
+
+@media (max-width: 768px) {
+  .wrap-login {
+    padding: 100px 80px 33px 80px;
+  }
+
+  .login-pic {
+    display: none;
+  }
+
+  .login-form {
+    width: 100%;
+  }
+}
+
+@media (max-width: 576px) {
+  .wrap-login {
+    padding: 100px 15px 33px 15px;
+  }
+}
+
+
+/*------------------------------------------------------------------
+[ Alert validate ]*/
+
+.validate-input {
+  position: relative;
+}
+
+.alert-validate::before {
+  content: attr(data-validate);
+  position: absolute;
+  max-width: 70%;
+  background-color: white;
+  border: 1px solid #c80000;
+  border-radius: 13px;
+  padding: 4px 25px 4px 10px;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+  -moz-transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
+  -o-transform: translateY(-50%);
+  transform: translateY(-50%);
+  right: 8px;
+  pointer-events: none;
+
+  font-family: Poppins-Medium;
+  color: #c80000;
+  font-size: 13px;
+  line-height: 1.4;
+  text-align: left;
+
+  visibility: hidden;
+  opacity: 0;
+
+  -webkit-transition: opacity 0.4s;
+  -o-transition: opacity 0.4s;
+  -moz-transition: opacity 0.4s;
+  transition: opacity 0.4s;
+}
+
+.alert-validate::after {
+  content: "\f06a";
+  font-family: FontAwesome;
+  display: block;
+  position: absolute;
+  color: #c80000;
+  font-size: 15px;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+  -moz-transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
+  -o-transform: translateY(-50%);
+  transform: translateY(-50%);
+  right: 13px;
+}
+
+.alert-validate:hover:before {
+  visibility: visible;
+  opacity: 1;
+}
+
+@media (max-width: 992px) {
+  .alert-validate::before {
+    visibility: visible;
+    opacity: 1;
+  }
+}

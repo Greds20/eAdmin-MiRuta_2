@@ -1,7 +1,7 @@
-@extends('layouts.loged')
+@extends('layouts.logedBase')
 
 @section('title')
-	<title>Inicio | Gestión de Fórmula</title>
+	<title>eAdmin MiRuta | Gestión de Fórmulas de Ponderación</title>
 @endsection
 
 @section('style')
@@ -9,7 +9,7 @@
 @endsection
 
 @section('ubication')
-	<span class="menuHoriTextN1">&nbsp;|&nbsp;</span><a href="{{ route('home') }}" class="menuHoriTextN1">Inicio</a><span class="menuHoriTextN3">:: Gestión de Fórmula</span>
+	<span class="menuHoriTextN1">&nbsp;|&nbsp;</span><a href="{{ route('home') }}" class="menuHoriTextN1">Inicio</a><span class="menuHoriTextN2">&nbsp;|&nbsp;</span><span class="menuHoriTextN3">Gestión de Fórmulas de Ponderación</span>
 @endsection
 
 @section('secundario')
@@ -37,9 +37,9 @@
 @section('content')
 	<div class="panelContenido">
 		<div class="panelBotones">
-			<a href="{{ route('adminFormula.redirecToSection', "agregar") }}" class="{{$section=="agregar" ? 'panelBotonesActived' : 'panelBotonesInactived'}}"><span>Agregar</span></a>
-			<a href="{{ route('adminFormula.redirecToSection', "modificar") }}" class="{{$section=="modificar" ? 'panelBotonesActived' : 'panelBotonesInactived'}}"><span>Modificar</span></a>
-			<a href="{{ route('adminFormula.redirecToSection', "consultar")}}" class="{{$section=="consultar" ? 'panelBotonesActived' : 'panelBotonesInactived'}}"><span>Consultar</span></a>
+			<a href="{{ route('formulaCrud.redirecToSection', "agregar") }}" class="{{$section=="agregar" ? 'panelBotonesActived' : 'panelBotonesInactived'}}"><span>Agregar</span></a>
+			<a href="{{ route('formulaCrud.redirecToSection', "modificar") }}" class="{{$section=="modificar" ? 'panelBotonesActived' : 'panelBotonesInactived'}}"><span>Modificar</span></a>
+			<a href="{{ route('formulaCrud.redirecToSection', "consultar")}}" class="{{$section=="consultar" ? 'panelBotonesActived' : 'panelBotonesInactived'}}"><span>Consultar</span></a>
 		</div>
 		<div class="divFormTable" style="width: 1500px;">
 			@switch($section)

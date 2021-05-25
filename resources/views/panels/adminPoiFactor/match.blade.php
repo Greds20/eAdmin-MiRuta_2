@@ -1,4 +1,4 @@
-<form method="POST" action="{{ route('adminPoiFactor.store') }}" enctype="multipart/form-data">
+<form method="POST" action="{{ route('poiFactorCrud.match') }}" enctype="multipart/form-data">
 	@csrf
 	<div class="monoDiv">
 		<h3>Nombre</h3>

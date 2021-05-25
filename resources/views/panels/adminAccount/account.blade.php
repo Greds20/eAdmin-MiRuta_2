@@ -1,4 +1,4 @@
-<form method="POST" action="{{ route('adminCuenta.updatePersonal', ["alias"=>$infoAdmin->alias]) }}" enctype="multipart/form-data">
+<form method="POST" action="{{ route('cuentaCrud.updatePublic', ["alias"=>$infoAdmin->alias]) }}" enctype="multipart/form-data">
 	@csrf
 	<div class="monoDiv">
 		<h3 class="titleH3Form">Información personal</h3>
@@ -32,7 +32,7 @@
 		<button class="formAddPoiBtn" type="submit">Guardar cambios</button>
 	</div>
 </form>
-<form method="POST" style="margin-top: 20px;" action="{{ route('adminCuenta.updatePass', ["alias"=>$infoAdmin->alias]) }}" enctype="multipart/form-data">
+<form method="POST" style="margin-top: 20px;" action="{{ route('cuentaCrud.updatePass', ["alias"=>$infoAdmin->alias]) }}" enctype="multipart/form-data">
 	@csrf
 	<div class="monoDiv">
 		<h3 class="titleH3Form">Contraseña</h3>

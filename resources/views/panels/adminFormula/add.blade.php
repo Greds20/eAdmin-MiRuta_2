@@ -1,4 +1,4 @@
-<form method="POST" action="{{ route('adminFormula.store') }}" enctype="multipart/form-data">
+<form method="POST" action="{{ route('formulaCrud.store') }}" enctype="multipart/form-data">
 	@csrf
 	<div class="rowsForm">
 		<h3>Fórmula</h3>

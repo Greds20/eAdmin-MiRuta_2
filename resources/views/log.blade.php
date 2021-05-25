@@ -1,7 +1,7 @@
-@extends('layouts.loged')
+@extends('layouts.logedBase')
 
 @section('title')
-	<title>Inicio | Monitorizar usuarios</title>
+	<title>eAdmin MiRuta | Monitorizar Administradores</title>
 @endsection
 
 @section('style')
@@ -9,7 +9,7 @@
 @endsection
 
 @section('ubication')
-	<span class="menuHoriTextN1">&nbsp;|&nbsp;</span><a href="{{ route('home') }}" class="menuHoriTextN1">Inicio</a><span class="menuHoriTextN3">:: Monitorizar usuarios</span>
+	<span class="menuHoriTextN1">&nbsp;|&nbsp;</span><a href="{{ route('home') }}" class="menuHoriTextN1">Inicio</a><span class="menuHoriTextN2">&nbsp;|&nbsp;</span><span class="menuHoriTextN3">Monitorizar Administradores</span>
 @endsection
 
 @section('secundario')

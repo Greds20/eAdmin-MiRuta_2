@@ -1,4 +1,4 @@
-<form method="POST" action="{{ route('adminFormula.update') }}" enctype="multipart/form-data">
+<form method="POST" action="{{ route('formulaCrud.update') }}" enctype="multipart/form-data">
 	@csrf
 	<div class="rowsForm">
 		<div class="monoDiv">

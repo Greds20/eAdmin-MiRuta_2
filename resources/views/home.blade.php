@@ -1,7 +1,7 @@
-@extends('layouts.loged')
+@extends('layouts.logedBase')
 
 @section('title')
-	<title>Inicio</title>
+	<title>eAdmin MiRuta</title>
 @endsection
 
 @section('style')
@@ -14,7 +14,7 @@
 
 @section('content')
 	<div class="menuMetro">
-		@include('menuMetro.homeMetro')
+		@include('menuSection.homeMenu')
 	</div>
 @endsection
 

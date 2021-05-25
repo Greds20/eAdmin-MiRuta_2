@@ -1,4 +1,4 @@
-<div class="panelSecundario" id="addItem" hidden="" style="z-index: 2;">
+<div class="panelSecundario" id="addItem" hidden="" style="z-index: 5;">
 	<div class="panelSecInterior">
 		<div class="divRowUnico">
 			<h3>Nuevo Item</h3>

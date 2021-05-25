@@ -2,100 +2,126 @@
 
 use Illuminate\Support\Facades\Route;
 
-//Rutas simples de views--------------------------
+//Visualizar paginas simples--------------------------
 Route::view('/', 'login')->name('login');
 Route::view('/inicio', 'home')->name('home');
 Route::view('/inventario', 'inventary')->name('inventary');
 Route::view('/log', 'log')->name('log');
 
 
-//Redireccion----------------------
-//No 'Seccion' en AdminPoi
-Route::get('/inventario/gestionar-poi', 'adminPoiController@nullSection')->name('adminPoi.nullSection');
 
-//No 'Seccion' en AdminFactor
-Route::get('/gestionar-formula', 'adminFormulaController@nullSection')->name('adminFormula.nullSection');
+//Gestionar pois ----------------------------
+	//Redireccionar sin sección
+Route::get('/inventario/gestionar-poi', function () {
+    return view('adminPoi', ['section' => 'agregar']);
+});
 
-//No 'Secciones' AdminFactorPoi
-Route::get('/inventario/gestionar-poifactor', 'adminPoiFactorController@nullSection')->name('adminPoiFactor.nullSection');
+	//Redireccionar a sección
+Route::get('/inventario/gestionar-poi/{section}', 'poiCrudController@redirecToSection')->name('poiCrud.redirecToSection');
 
-//No 'Secciones' AdminTip
-Route::get('/inventario/gestionar-tipologias', 'adminTipologiasController@nullSection')->name('adminTipologias.nullSection');
+	//CRUD Crear
+Route::post('/inventario/gestionar-poi/agregar', 'poiCrudController@store')->name('poiCrud.store');
 
-//No 'Secciones' AdminAdministradores
-Route::get('/gestionar-administradores', 'adminAdministradoresController@nullSection')->name('adminAdministradores.nullSection');
-
-//No 'Secciones' AdminEstablecimiento
-Route::get('/gestionar-establecimientos', 'adminEstablecimientoController@nullSection')->name('adminEstablecimiento.nullSection');
+	//CRUD Actualizar
+Route::post('/inventario/gestionar-poi/modificar', 'poiCrudController@update')->name('poiCrud.update');
 
 
 
-//Formularios-----------
-//Agregar PoI [AdminPoi]
-Route::post('/inventario/gestionar-poi/agregar', 'adminPoiController@store')->name('adminPoi.store');
+//Gestionar tipologias ----------------------------
+	//Redireccionar sin sección
+Route::get('/inventario/gestionar-tipologias', function () {
+    return view('adminTipology', ['section' => 'agregar']);
+});
 
-//Modificar PoI [AdminPoi]
-Route::post('/inventario/gestionar-poi/modificar', 'adminPoiController@update')->name('adminPoi.update');
+	//Redireccionar a sección
+Route::get('/inventario/gestionar-tipologias/{section}', 'tipologiaCrudController@redirecToSection')->name('tipologiaCrud.redirecToSection');
 
-//Modificar [AdminFormula]
-Route::post('/gestionar-formula/modificar', 'adminFormulaController@update')->name('adminFormula.update');
+	//CRUD Crear
+Route::post('/inventario/gestionar-tipologias/agregar', 'tipologiaCrudController@store')->name('tipologiaCrud.store');
 
-//Agregar [AdminFormula]
-Route::post('/gestionar-formula/agregar', 'adminFormulaController@store')->name('adminFormula.store');
-
-//Emparejar factores-PoIs [AdminFactorPoi]
-Route::post('/inventario/gestionar-poifactor/emparejar', 'adminPoiFactorController@store')->name('adminPoiFactor.store');
-
-//Modificar valores Factores-PoIs [AdminFactorPoi]
-Route::post('/inventario/gestionar-poifactor/modificar', 'adminPoiFactorController@update')->name('adminPoiFactor.update');
-
-//Agregar[AdminTipologias]
-Route::post('/inventario/gestionar-tipologias/agregar', 'adminTipologiasController@store')->name('adminTipologias.store');
-
-//Modificar [AdminTipologias]
-Route::post('/inventario/gestionar-tipologias/modificar', 'adminTipologiasController@update')->name('adminTipologias.update');
-
-//Agregar [AdminAdministradores]
-Route::post('/gestionar-administradores/agregar', 'adminAdministradoresController@store')->name('adminAdministradores.store');
-
-//Modificar [AdminAdministradores]
-Route::post('/gestionar-administradores/modificar', 'adminAdministradoresController@update')->name('adminAdministradores.update');
-
-//Modificar Info. Personal [AdminCuenta]
-Route::post('/perfil/personal/{alias}', 'adminCuentaController@updatePersonal')->name('adminCuenta.updatePersonal');
-
-//Modificar Contraseña [AdminCuenta]
-Route::post('/perfil/pass/{alias}', 'adminCuentaController@updatePass')->name('adminCuenta.updatePass');
-
-//Agregar[AdminEstablecimiento]
-Route::post('/inventario/gestionar-establecimientos/agregar', 'adminEstablecimientoController@store')->name('adminEstablecimiento.store');
-
-//Modificar [AdminEstablecimiento]
-Route::post('/inventario/gestionar-establecimientos/modificar', 'adminEstablecimientoController@update')->name('adminEstablecimiento.update');
+	//CRUD Actualizar
+Route::post('/inventario/gestionar-tipologias/modificar', 'tipologiaCrudController@update')->name('tipologiaCrud.update');
 
 
 
-//Envio de variables-------------------
-//'Secciones' AdminPoI
-Route::get('/inventario/gestionar-poi/{section}', 'adminPoiController@redirecToSection')->name('adminPoi.redirecToSection');
+//Gestionar establecimientos ----------------------------
+	//Redireccionar sin sección
+Route::get('/inventario/gestionar-establecimientos', function () {
+    return view('adminEstablishment', ['section' => 'agregar']);
+});
 
-//'Secciones' AdminFormula
-Route::get('/gestionar-formula/{section}', 'adminFormulaController@redirecToSection')->name('adminFormula.redirecToSection');
+	//Redireccionar a sección
+Route::get('/inventario/gestionar-establecimientos/{section}', 'establecimientoCrudController@redirecToSection')->name('establecimientoCrud.redirecToSection');
 
-//'Secciones' AdminFactorPoi
-Route::get('/inventario/gestionar-poifactor/{section}', 'adminPoiFactorController@redirecToSection')->name('adminPoiFactor.redirecToSection');
+	//CRUD Crear
+Route::post('/inventario/gestionar-establecimientos/agregar', 'establecimientoCrudController@store')->name('establecimientoCrud.store');
 
-//'Secciones' AdminFactorPoi
-Route::get('/inventario/gestionar-tipologias/{section}', 'adminTipologiasController@redirecToSection')->name('adminTipologias.redirecToSection');
+	//CRUD Actualizar
+Route::post('/inventario/gestionar-establecimientos/modificar', 'establecimientoCrudController@update')->name('establecimientoCrud.update');
 
-//'Secciones' AdminAdministradores
-Route::get('/gestionar-administradores/{section}', 'adminAdministradoresController@redirecToSection')->name('adminAdministradores.redirecToSection');
 
-//Peril AdminCuenta
-Route::get('/perfil/{alias}', 'adminCuentaController@redirecToAccount')->name('adminCuenta.redirecToAccount');
 
-//'Secciones' AdminEstablecimiento
-Route::get('/inventario/gestionar-establecimientos/{section}', 'adminEstablecimientoController@redirecToSection')->name('adminEstablecimiento.redirecToSection');
+//Gestionar poi-factor ----------------------------
+	//Redireccionar sin sección
+Route::get('/inventario/gestionar-poifactor', function () {
+    return view('adminPoiFactor', ['section' => 'emparejar']);
+});
+
+	//Redireccionar a sección
+Route::get('/inventario/gestionar-poifactor/{section}', 'poiFactorCrudController@redirecToSection')->name('poiFactorCrud.redirecToSection');
+
+	//CRUD Emparejar
+Route::post('/inventario/gestionar-poifactor/emparejar', 'poiFactorCrudController@match')->name('poiFactorCrud.match');
+
+	//CRUD Actualizar
+Route::post('/inventario/gestionar-poifactor/modificar', 'poiFactorCrudController@update')->name('poiFactorCrud.update');
+
+
+
+//Gestionar fórmulas ----------------------------
+	//Redireccionar sin sección
+Route::get('/gestionar-formula', function () {
+    return view('adminFormula', ['section' => 'agregar']);
+});
+
+	//Redireccionar a sección
+Route::get('/gestionar-formula/{section}', 'formulaCrudController@redirecToSection')->name('formulaCrud.redirecToSection');
+
+	//CRUD Crear
+Route::post('/gestionar-formula/agregar', 'formulaCrudController@store')->name('formulaCrud.store');
+
+	//CRUD Actualizar
+Route::post('/gestionar-formula/modificar', 'formulaCrudController@update')->name('formulaCrud.update');
+
+
+
+//Gestionar administradores ----------------------------
+	//Redireccionar sin sección
+Route::get('/gestionar-administradores', function () {
+    return view('adminAdministrator', ['section' => 'agregar']);
+});
+
+	//Redireccionar a sección
+Route::get('/gestionar-administradores/{section}', 'administradorCrudController@redirecToSection')->name('administradorCrud.redirecToSection');
+
+	//CRUD Crear
+Route::post('/gestionar-administradores/agregar', 'administradorCrudController@store')->name('administradorCrud.store');
+
+	//CRUD Actualizar
+Route::post('/gestionar-administradores/modificar', 'administradorCrudController@update')->name('administradorCrud.update');
+
+
+
+//Gestionar cuenta ----------------------------
+	//Redireccionar a sección
+Route::get('/perfil/{alias}', 'cuentaCrudController@redirecToAccount')->name('cuentaCrud.redirecToAccount');
+
+	//CRUD Actualizar (Info. publica)
+Route::post('/perfil/publico/{alias}', 'cuentaCrudController@updatePublic')->name('cuentaCrud.updatePersonal');
+
+	//CRUD Actualizar (Contraseña)
+Route::post('/perfil/privado/{alias}', 'cuentaCrudController@updatePass')->name('cuentaCrud.updatePass');
+
 
 
 //Dinamicos--------------------
@@ -183,6 +209,12 @@ Route::get('buscar-administradores/log', 'logDynamicController@searchUser')->nam
 
 //Obtener logs ->term
 Route::get('obtener-log/log', 'logDynamicController@consultLog')->name('logDynamic.consultLog');
+
+
+
+
+//Global
+Route::get('obtener-municipios', 'getGRecordsController@getMunicipio')->name('getGRecords.getMunicipio');
 
 //Autenticacion------------------------
 Auth::routes();

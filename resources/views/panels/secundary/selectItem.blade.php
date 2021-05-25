@@ -1,4 +1,4 @@
-<div class="panelSecundario" id="itemShowPanel" hidden="" style="z-index: 3;">
+<div class="panelSecundario" id="itemShowPanel" hidden="" style="z-index: 7;">
 	<div class="panelSecInterior">
 		<div class="divRowUnico">
 			<h3>Seleccionar</h3>

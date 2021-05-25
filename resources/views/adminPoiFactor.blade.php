@@ -1,7 +1,7 @@
-@extends('layouts.loged')
+@extends('layouts.logedBase')
 
 @section('title')
-	<title>Inicio | Gestión de Inventario | Gestionar PoIs/Factores</title>
+	<title>eAdmin MiRuta | Gestión de Inventario Turístico | Gestión de PoI-Factor</title>
 @endsection
 
 @section('style')
@@ -9,7 +9,7 @@
 @endsection
 
 @section('ubication')
-	<span class="menuHoriTextN1">&nbsp;|&nbsp;</span><a href="{{ route('home') }}" class="menuHoriTextN1">Inicio</a><span class="menuHoriTextN2">&nbsp;|&nbsp;</span><a href="{{ route('inventary') }}" class="menuHoriTextN2">Gestión de inventario turístico</a><span class="menuHoriTextN3">:: Gestión de PoIs/Factores</span>
+	<span class="menuHoriTextN1">&nbsp;|&nbsp;</span><a href="{{ route('home') }}" class="menuHoriTextN1">Inicio</a><span class="menuHoriTextN2">&nbsp;|&nbsp;</span><a href="{{ route('inventary') }}" class="menuHoriTextN2">Gestión de Inventario Turístico</a><span class="menuHoriTextN3">:: Gestión de PoI-Factor</span>
 @endsection
 
 @section('secundario')
@@ -35,9 +35,9 @@
 @section('content')
 	<div class="panelContenido">
 		<div class="panelBotones">
-			<a href="{{ route('adminPoiFactor.redirecToSection', "modificar") }}" class="{{$section=="modificar" ? 'panelBotonesActived' : 'panelBotonesInactived'}}"><span>Modificar</span></a>
-			<a href="{{ route('adminPoiFactor.redirecToSection', "emparejar")}}" class="{{$section=="emparejar" ? 'panelBotonesActived' : 'panelBotonesInactived'}}"><span>Emparejar</span></a>
-			<a href="{{ route('adminPoiFactor.redirecToSection', "consultar") }}" class="{{$section=="consultar" ? 'panelBotonesActived' : 'panelBotonesInactived'}}"><span>Consultar</span></a>
+			<a href="{{ route('poiFactorCrud.redirecToSection', "emparejar")}}" class="{{$section=="emparejar" ? 'panelBotonesActived' : 'panelBotonesInactived'}}"><span>Emparejar</span></a>
+			<a href="{{ route('poiFactorCrud.redirecToSection', "modificar") }}" class="{{$section=="modificar" ? 'panelBotonesActived' : 'panelBotonesInactived'}}"><span>Modificar</span></a>
+			<a href="{{ route('poiFactorCrud.redirecToSection', "consultar") }}" class="{{$section=="consultar" ? 'panelBotonesActived' : 'panelBotonesInactived'}}"><span>Consultar</span></a>
 		</div>
 		<div class="divForm" id="divFormulario" style="width: 1010px;">
 			@switch($section)

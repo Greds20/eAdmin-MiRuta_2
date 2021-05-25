@@ -1,4 +1,4 @@
-<form method="POST" action="{{ route('adminPoiFactor.update') }}" enctype="multipart/form-data">
+<form method="POST" action="{{ route('poiFactorCrud.update') }}" enctype="multipart/form-data">
 	@csrf
 	<input type="text" hidden="" name="id" id="id">
 	<div class="monoDiv">

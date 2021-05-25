@@ -34,6 +34,7 @@ class establecimientoDynamicController extends Controller
         return $data;
     }
 
+    //Obtener establecimientos que correlacionen con una cadena
     public function searchEstab(Request $request){
         if(is_null($request->get('term'))){
         	$querys = Establecimiento::select('id_tipologia', 'nombre')->get();
@@ -52,7 +53,7 @@ class establecimientoDynamicController extends Controller
         return $data;
     }
 
-    //Obtener info de una tipología traida por un ID (Info propia)
+    //Obtener info de un establecimiento traida por un ID (Info propia)
     public function getSelectedEstab(Request $request){
         $id = $request->get('id');
         $sTipologia = Establecimiento::select('id_tipologia', 'nombre', 'descripcion', 'estado')->where('id_tipologia', '=', $id)->get();
@@ -60,10 +61,20 @@ class establecimientoDynamicController extends Controller
         return $sTipologia;
     }
 
-    //Obtener tipologias
-    public function fillAdminPoi(){
-        $tipologias = Establecimiento::select('id_tipologia','nombre')->get();
-        return $tipologias;
+    //Obtener establecimientos
+    public function getMun(Request $request){
+        if($request->get('estado')){
+            if($request->get('state') == "1"){
+                $querys = Establecimiento::select('id_tipologia', 'nombre')->get();
+            }else{
+                $querys = Establecimiento::select('id_tipologia', 'nombre')->where('estado','=','true')->get();
+            }
+        }else{
+            if($request->get('state') == "1"){
+                $querys = Establecimiento::select('id_tipologia', 'nombre')->where('nombre', 'LIKE', '%' . $request->get('term') . '%')->get();
+            }else{
+                $querys = Establecimiento::select('id_tipologia', 'nombre')->where([['nombre', 'LIKE', '%' . $request->get('term') . '%'],['estado','=','true']])->get();
+            }
+        }
     }
-
 }

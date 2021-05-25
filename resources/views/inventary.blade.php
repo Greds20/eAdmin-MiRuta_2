@@ -1,19 +1,19 @@
-@extends('layouts.loged')
+@extends('layouts.logedBase')
 
 @section('title')
-	<title>Inicio | Gestión de Inventario</title>
+	<title>eAdmin MiRuta | Gestión de Inventario Turístico</title>
 @endsection
 
 @section('style')
 @endsection
 
 @section('ubication')
-	<span class="menuHoriTextN1">&nbsp;|&nbsp;</span><a href="{{ route('home') }}" class="menuHoriTextN1">Inicio</a><span class="menuHoriTextN2">&nbsp;|&nbsp;</span><a href="{{ route('inventary') }}" class="menuHoriTextN2">Gestión de inventario turístico</a>
+	<span class="menuHoriTextN1">&nbsp;|&nbsp;</span><a href="{{ route('home') }}" class="menuHoriTextN1">Inicio</a><span class="menuHoriTextN2">&nbsp;|&nbsp;</span><a href="{{ route('inventary') }}" class="menuHoriTextN2">Gestión de Inventario Turístico</a>
 @endsection
 
 @section('content')
 	<div class="menuMetro">
-		@include('menuMetro.inventaryMetro')
+		@include('menuSection.inventaryMenu')
 	</div>
 @endsection
 

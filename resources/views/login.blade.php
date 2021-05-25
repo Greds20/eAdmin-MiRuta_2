@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-	@extends('layouts.base')
+	@extends('layouts.loginBase')
 
 	@section('title')
-		<title>Login</title>
+		<title>eAdmin MiRuta | Iniciar Sesión</title>
 	@endsection
 
 	@section('style')

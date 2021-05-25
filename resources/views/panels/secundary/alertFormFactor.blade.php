@@ -1,4 +1,4 @@
-<div class="panelSecundario" id="alertFormFactor" hidden="" style="z-index: 2;">
+<div class="panelSecundario" id="alertFormFactor" hidden="" style="z-index: 4;">
 	<div class="panelSecInterior">
 		<div class="divRowUnico">
 			<h3>¡Alerta!</h3>

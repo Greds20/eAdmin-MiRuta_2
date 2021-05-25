@@ -493,7 +493,6 @@ iframe {
   width: 100%;
 }
 
-
 .textHover{
   position: relative;
   font-size:20px;
@@ -531,6 +530,11 @@ iframe {
   border-bottom-color: #464646;
   border-width: 6px;
   margin-top: -6px;
+}
+
+.mapStyle{
+  width: 100%;
+  height: 480px;
 }
 
 /*--------------------------------------------------------------
@@ -712,7 +716,7 @@ iframe {
 }
 
 .div2InputxButton img{
-  height: 50%;
+  height: 40%;
 }
 
 .buttonBlue{

@@ -211,10 +211,21 @@ Route::get('buscar-administradores/log', 'logDynamicController@searchUser')->nam
 Route::get('obtener-log/log', 'logDynamicController@consultLog')->name('logDynamic.consultLog');
 
 
-
-
 //Global
 Route::get('obtener-municipios', 'getGRecordsController@getMunicipio')->name('getGRecords.getMunicipio');
+
+	//Crear storage-link accediendo a la dirección URL "storage-link"
+Route::get('storage-link', function(){
+	if(file_exists(public_path('storage'))){
+		return 'El directorio "public/storage" ya existe.';
+	}
+
+	app('files')->link(
+		storage_path('app/public'), public_path('storage')
+	);
+
+	return 'El directorio "public/storage" a sido creado.';
+});
 
 //Autenticacion------------------------
 Auth::routes();

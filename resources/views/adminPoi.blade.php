@@ -14,7 +14,7 @@
 @endsection
 
 @section('ubication')
-	<span class="menuHoriTextN1">&nbsp;|&nbsp;</span><a href="{{ route('home') }}" class="menuHoriTextN1">Inicio</a><span class="menuHoriTextN2">&nbsp;|&nbsp;</span><a href="{{ route('inventary') }}" class="menuHoriTextN2">Gestión de Inventario Turístico</a><span class="menuHoriTextN3">:: Gestión de PoIs</span>
+	<span class="menuHoriTextN1">&nbsp;|&nbsp;</span><a href="{{ route('home') }}" class="menuHoriTextN1">Inicio</a><span class="menuHoriTextN2">&nbsp;|&nbsp;</span><a href="{{ route('inventary') }}" class="menuHoriTextN2">Gestión de Inventario Turístico</a><span class="menuHoriTextN3">:: Gestión de Puntos de Interés</span>
 @endsection
 
 @section('secundario')
@@ -72,7 +72,6 @@
 		@break
 
 		@case("modificar")
-			
 			@include('scripts.adminPoi.fillPoiList')
 			@include('scripts.adminPoi.fillTownxTipo')
 			@include('scripts.adminPoi.selectedTipoList')

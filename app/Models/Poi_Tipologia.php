@@ -16,6 +16,6 @@ class Poi_Tipologia extends Model
 
 	public $timestamps = false;
     protected $table = 'poi_tipologia';
-    protected $primaryKey = ['fk_id_poi', 'fk_id_tipologia'];
+    protected $primaryKey = 'fk_id_poi';
     public $incrementing = false;
 }

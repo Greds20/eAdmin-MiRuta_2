@@ -19,7 +19,7 @@
 		<h3>Imágen del PoI</h3>
 		<input type="file" name="image" accept=".jpg,.png,.jpeg" class="inputFile" onchange="loadImage(event)" required="">
 		<div class="divReviewerImg">
-			<img id="review" style="height: 100%; width: 100%">
+			<img id="review" height="100%" width="100%">
 		</div>
 	</div>
 	<div class="rowsForm">
@@ -27,18 +27,19 @@
 		<select name="town" class="select" id="town" required="">
 		</select>
 	</div>
-	
 	<div class="rowsForm">
+		<h3>Costo de entrada</h3>
+		<input type="text" class="inputSimple" name="cost" placeholder="0 a 999999 pesos" required="" maxlength="6" autocomplete="off" value="0" value="{{ old('cost') }}">
+	</div>
+	<div class="monoDivSep">
 		<h3>Coordenadas (decimales)</h3>
-		<div class="div2InputxButton">
-			<div style="width: 85%; margin-right: 10px;">
-				<input type="text" class="inputSimple" id="cx" name="cx" maxlength="9" placeholder="Longitud" required="" style="margin-bottom: 10px;" autocomplete="off" value="{{ old('cx') }}">
-				<input type="text" class="inputSimple" id="cy" name="cy" maxlength="9" placeholder="Latitud" required="" autocomplete="off" value="{{ old('cy') }}">
-			</div>
-			<div style="width: 15%">
-				<a href="#" class="buttonBlue" id="btnShowSetCoord"><img src="{{ asset("img/icons/cordsIcon.png") }}" ></a>
-			</div>
-		</div>
+	</div>
+	<div class="rowsForm">
+		<input type="text" class="inputSimple" name="cx" maxlength="9" placeholder="Longitud" required="" id="cx" autocomplete="off" value="{{ old('cx') }}">
+	</div>
+	<div class="divInputxButton rowsForm">
+		<input type="text" class="inputSimple elementRM" name="cy" maxlength="9" placeholder="Latitud" required="" id="cy" autocomplete="off" value="{{ old('cy') }}">
+		<a href="#" class="buttonBlue" id="btnShowSetCoord"><img src="{{ asset("img/icons/cordsIcon.png") }}"></a>
 	</div>
 	
 	<div class="monoDiv">

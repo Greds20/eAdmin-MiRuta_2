@@ -13,16 +13,16 @@ $.ajax({
 		document.getElementById("description").innerHTML = (data[0])[0].descripcion;
 		document.getElementById("cx").value = (data[0])[0].coordenadax;
 		document.getElementById("cy").value = (data[0])[0].coordenaday;
+		document.getElementById("cost").value = (data[0])[0].costo;
 		document.getElementById("state").checked = (data[0])[0].estado;
 		document.getElementById("stateV").checked = (data[0])[0].estado;
 		document.getElementById("state").value = (data[0])[0].estado ? '1' : '0';
 		document.getElementById("state").checked = true;
 		document.getElementById("stateText").textContent = (data[0])[0].estado ? "Activo" : "Inactivo";
 		
-		var url = ("{{ url('storage/'.'img') }}").replace("img", (data[0])[0].imagen);
-		document.getElementById('review').src = url;
+		document.getElementById('review').src = "{!! asset('storage/poiImages/') !!}"+"/"+(data[0])[0].imagen;
 
-		document.getElementById('town').selectedIndex = (data[0])[0].fk_id_municipio-1;
+		document.getElementById('town').selectedIndex = (data[0])[0].fk_id_tipologia-1;
 
 		var topList = document.getElementById("listadoTipo").getElementsByTagName("li");
 

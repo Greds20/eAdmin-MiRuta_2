@@ -23,30 +23,37 @@
 		<h3>Imágen del PoI</h3>
 		<input type="file" name="image" accept=".jpg,.png,.jpeg" class="inputFile" onchange="loadImage(event)" id="image">
 		<div class="divReviewerImg">
-			<img id="review" style="height: 100%; width: 100%">
+			<img id="review" height="100%" width="100%">
 		</div>
 	</div>
-	<div class="rowsForm">
+	<div class="monoDiv">
 		<h3>Municipio</h3>
 		<select name="town" class="select" id="town" required="">
 		</select>
 	</div>
 	<div class="rowsForm">
+		<h3>Costo de entrada</h3>
+		<input type="text" class="inputSimple" id="cost" name="cost" placeholder="0 a 999999 pesos" required="" maxlength="6" autocomplete="off">
+	</div>
+	<div class="rowsForm">
 		<h3>Tiempo de estancia</h3>
 		<input type="text" class="inputSimple" name="time" placeholder="0 a 720 minutos" required="" maxlength="3" id="time" autocomplete="off">
 	</div>
-	<div class="monoDivSep">
+	<div class="rowsForm">
 		<h3>Coordenadas (decimales)</h3>
+		<div class="div2InputxButton">
+			<div style="width: 88%;" class="elementRM">
+				<input type="text" class="inputSimple elementBM" id="cx" name="cx" maxlength="9" placeholder="Longitud" required="" autocomplete="off">
+				<input type="text" class="inputSimple" id="cy" name="cy" maxlength="9" placeholder="Latitud" required="" autocomplete="off">
+			</div>
+			<div style="width: 12%">
+				<a href="#" class="buttonBlue" id="btnShowSetCoord"><img src="{{ asset("img/icons/cordsIcon.png") }}" ></a>
+			</div>
+		</div>
 	</div>
 	<div class="rowsForm">
-		<input type="text" class="inputSimple" name="cx" maxlength="9" placeholder="Longitud" required="" id="cx" autocomplete="off">
-	</div>
-	<div class="rowsForm">
-		<input type="text" class="inputSimple" name="cy" maxlength="9" placeholder="Latitud" required="" id="cy" autocomplete="off">
-	</div>
-	<div class="monoDiv">
 		<h3>Descripción</h3>
-		<textarea class="textarea" name="description" required="" maxlength="100" style="height: 100px;" id="description"></textarea>
+		<textarea class="textarea" name="description" required="" maxlength="100" style="height: 86px;" id="description"></textarea>
 	</div>
 	<div class="monoDiv divBottomForm">
 		<button class="formAddPoiBtn" type="submit">Guardar</button>

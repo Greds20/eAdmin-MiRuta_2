@@ -5,23 +5,14 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Poi extends Model
+class Poi_AI extends Model
 {
     use HasFactory;
     public $timestamps = false;
 	public $incrementing = false;
-    protected $table = 'poi';
-    protected $primaryKey = 'id_poi';
+    protected $table = 'information_schema.TABLES';
 
 	protected $fillable = [
-		'nombre', 
-		'coordenadax', 
-		'coordenaday', 
-		'tiempoestancia', 
-		'descripcion', 
-		'costo',
-		'imagen',
-		'estado', 
-		'fk_id_municipio',
+		'AUTO_INCREMENT', 
 	];
 }

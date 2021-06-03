@@ -2,17 +2,16 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\AdminPoiCreateRequest;
-use App\Http\Requests\AdminPoiModifyRequest;
+use App\Http\Requests\poiCxURequest;
 use App\Models\Log;
 use Carbon\Carbon;
 use App\Models\Municipio;
 use App\Models\Poi;
-//use App\Models\Poi_Seq;
+use App\Models\Poi_AI;
 use App\Models\Poi_Tipologia;
 use App\Models\Tipologia;
 use Illuminate\Http\Request;
-//use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Storage;
 
 class poiCrudController extends Controller
 {
@@ -21,30 +20,34 @@ class poiCrudController extends Controller
         return view('adminPoi', ['section' => $section]);
     }
 
-    public function store(AdminPoiCreateRequest $request)
+    public function store(poiCxURequest $request)
     {
         $requestV = $request->validated();
+        $requestEx = $request->validate([
+            'image' => 'required'
+        ],[
+            'image.required' => 'La imagen es requerida.',
+        ]);
+
         //Comprobar que tipologias seleccionadas existen
         $errorvTipo = false;
         $tipoTam = count($requestV['tipo']);
         for($i=0;$i < $tipoTam;$i++){
-            $ctSsTipo = Tipologia::select('id_tipologia')->where([['id_tipologia','=',($requestV['tipo'])[$i]],['estado','=','true']])->count();
+            $ctSsTipo = Tipologia::select('id_tipologia')->where([['id_tipologia','=',($requestV['tipo'])[$i]],['estado','=','1']])->count();
             if($ctSsTipo==0){
                 $errorvTipo = true;
                 break;
             }
         }
         
+        //Comprobar que el poi no tenga el mismo nombre a otro poi
         $errorName = false;
-        if(!$errorvTipo){
-            //Comprobar que el poi no tenga el mismo nombre a otro poi
-            $nctNamePoi = Poi::select('nombre')->whereRaw('UPPER(nombre)=UPPER(\''.$requestV['name'].'\')')->count();
-            if($nctNamePoi>0){
-                $errorName = true;
-            }
+        $nctNamePoi = Poi::select('nombre')->where('nombre','=',$requestV['name'])->count();
+        if($nctNamePoi>0){
+            $errorName = true;
         }
 
-        //Comprobar que el municipio exista
+        //Comprobar que el municipio seleccionado exista
         $errorvMun = false;
         $ctMun = Municipio::select('id_municipio')->where('id_municipio','=',$requestV['town'])->count();
         if($ctMun==0){
@@ -62,36 +65,35 @@ class poiCrudController extends Controller
         $errores = [];
         if($errorName || $errorvTipo || $errorLongCord || $errorvMun){
             if($errorName)
-                array_push($errores, "El nombre del PoI duplicado.");
+                array_push($errores, "Ya existe el punto de interés.");
             if($errorvTipo)
                 array_push($errores, "Una o varias de las tipologias seleccionadas no existen.");
             if($errorLongCord)
-                array_push($errores, "La longitud de las coordenadas deben ser menores a 9.");
+                array_push($errores, "Longitud de coordenadas excedido.");
             if($errorvMun)
                 array_push($errores, "El municipio escogido no se encuentra registrado.");
             return view('adminPoi', ['section' => 'agregar', 'errores' => $errores]);
         }else{
-            $nextVal = Poi_Seq::select('last_value','is_called')->get();
-            if(($nextVal[0])->is_called)
-                ($nextVal[0])->last_value++;
+            $nextVal = (Poi_AI::select('AUTO_INCREMENT')->where([['TABLE_SCHEMA','=','ruta'],['TABLE_NAME','=','poi']])->get())[0]->AUTO_INCREMENT;
             $ext = $requestV['image']->getClientOriginalExtension();
-            $path = $requestV['image']->storeAs('poiPhotos', ($nextVal[0])->last_value . '.' . $ext,'poiPhotos');
+            $path = $requestV['image']->storeAs('/', $nextVal . '.' . $ext,'poiImages');
             Poi::create([
                 'nombre' => $requestV["name"],
                 'coordenadax' => $requestV["cx"],
                 'coordenaday' => $requestV["cy"],
                 'tiempoestancia' => $requestV["time"],
+                'costo' => $requestV["cost"],
                 'descripcion' => $requestV["description"],
                 'imagen' => $path,
-                'estado' => true,
+                'estado' => 1,
                 'fk_id_municipio' => $requestV["town"]
             ]);
 
             for ($i=0; $i < $tipoTam; $i++) { 
                 Poi_Tipologia::create([
-                    'fk_id_poi' => ($nextVal[0])->last_value,
+                    'fk_id_poi' => $nextVal,
                     'fk_id_tipologia' => ($requestV["tipo"])[$i],
-                    'estado' => true
+                    'estado' => 1
                 ]);
             }
 
@@ -106,13 +108,26 @@ class poiCrudController extends Controller
         }
     }
 
-    public function update(AdminPoiModifyRequest $request)
+    public function update(poiCxURequest $request)
     {
         $requestV = $request->validated();
+        $requestEx = $request->validate([
+            'id' => 'required|integer|min:0|max:999',
+            'state' => 'required|integer|digits_between:0,1'
+        ],[
+            'id.required' => 'El ID es requerido',
+            'id.integer' => 'El ID debe estar en números enteros',
+            'id.min' => 'El ID debe ser mayor a 0',
+            'id.max' => 'El ID debe ser menor a 1000',
+
+            'state.required' => 'Estado es requerido',
+            'state.integer' => 'El estado debe estar en números enteros',
+            'state.digits_between' => 'El estado no está dentro del rango'
+        ]);
 
         //Comprobar que el poi existe
         $errorvPoi = false;
-        $countPoi=Poi::select('id_poi')->where('id_poi','=',$requestV['id'])->count();
+        $countPoi=Poi::select('id_poi')->where('id_poi','=',$requestEx['id'])->count();
         if($countPoi==0){
             $errorvPoi = true;
         }
@@ -121,7 +136,7 @@ class poiCrudController extends Controller
         $errorvTipo = false;
         $stipoTam = count($requestV['tipo']);
         for($i=0;$i < $stipoTam;$i++){
-            $ctSsTipo = Tipologia::select('id_tipologia')->where([['id_tipologia','=',($requestV['tipo'])[$i]],['estado','=','true']])->count();
+            $ctSsTipo = Tipologia::select('id_tipologia')->where([['id_tipologia','=',($requestV['tipo'])[$i]],['estado','=',1]])->count();
             if($ctSsTipo==0){
                 $errorvTipo = true;
                 break;
@@ -148,50 +163,45 @@ class poiCrudController extends Controller
             if($errorvMun)
                 array_push($errores, "El municipio escogido no se encuentra registrado.");
             if($errorEstancia)
-                array_push($errores, "El tiempo de estancia supera las 12 horas.");
+                array_push($errores, "Tiempo de estancia excedido.");
             if($errorvPoi)
-                array_push($errores, "El ID del PoI no existe.");
+                array_push($errores, "El ID no existe.");
             if($errorLongCord)
-                array_push($errores, "La longitud de las coordenadas deben ser menores a 9.");
+                array_push($errores, "Longitud de las coordenadas excedido.");
             return view('adminPoi', ['section' => 'modificar', 'errores' => $errores]);
         }else{
-            $estado = ($requestV["state"]==0) ? false : true;
-            //*
+            $path = (Poi::select('imagen')->where('id_poi','=',$requestEx["id"])->get())[0]->imagen;
             if ($request->hasFile('image'))
             {
-                $pathImg = Poi::select('imagen')->where('id_poi','=',$requestV["id"])->get();
-                Storage::disk('poiPhotos')->delete($pathImg[0]->imagen);
+                Storage::disk('poiImages')->delete($path);
                 $ext = $requestV['image']->getClientOriginalExtension();
-                $path = $requestV['image']->storeAs('poiPhotos', $requestV["id"] . '.' . $ext,'poiPhotos');
-                Poi::where('id_poi', $requestV["id"])->update([
-                    'imagen' => $path
-                ]);
+                $path = $requestV['image']->storeAs('/', $requestEx["id"] . '.' . $ext,'poiImages');
             }
-            //*
             
-            Poi::where('id_poi', $requestV["id"])->update([
+            Poi::where('id_poi', $requestEx["id"])->update([
                 'nombre' => $requestV["name"],
                 'coordenadax' => $requestV["cx"],
                 'coordenaday' => $requestV["cy"],
                 'tiempoestancia' => $requestV["time"],
+                'imagen' => $path,
                 'descripcion' => $requestV["description"],
-                'estado' => $estado,
+                'estado' => $requestEx["state"],
                 'fk_id_municipio' => $requestV["town"]
             ]);
 
-            Poi_Tipologia::where('fk_id_poi','=',$requestV["id"])->update([
+            Poi_Tipologia::where('fk_id_poi','=',$requestEx["id"])->update([
                         'estado' => false
                     ]); 
             for ($i=0; $i < $stipoTam; $i++) {
-                $ctPxT = Poi_Tipologia::select('fk_id_tipologia')->where([['fk_id_poi','=',$requestV["id"]],['fk_id_tipologia','=',($requestV["tipo"])[$i]]])->count();
+                $ctPxT = Poi_Tipologia::select('fk_id_tipologia')->where([['fk_id_poi','=',$requestEx["id"]],['fk_id_tipologia','=',($requestV["tipo"])[$i]]])->count();
                 if(empty($ctPxT)){
                     Poi_Tipologia::create([
-                        'fk_id_poi' => $requestV["id"],
+                        'fk_id_poi' => $requestEx["id"],
                         'fk_id_tipologia' => ($requestV["tipo"])[$i],
                         'estado' => true
                     ]);
                 }else{
-                    Poi_Tipologia::where([['fk_id_poi','=',$requestV["id"]],['fk_id_tipologia','=',($requestV["tipo"])[$i]]])->update([
+                    Poi_Tipologia::where([['fk_id_poi','=',$requestEx["id"]],['fk_id_tipologia','=',($requestV["tipo"])[$i]]])->update([
                         'estado' => true
                     ]); 
                 }

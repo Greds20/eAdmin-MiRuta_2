@@ -5,14 +5,15 @@ $.ajax({
 		id: $(this).attr('id')
 	},
 	success: function(data){
+		document.getElementById("name").value = (data[0])[0].nombre;
 		document.getElementById("time").value = (data[0])[0].tiempoestancia;
+		document.getElementById("cost").value = (data[0])[0].costo;
 		document.getElementById("description").innerHTML = (data[0])[0].descripcion;
 		document.getElementById("cx").value = (data[0])[0].coordenadax;
 		document.getElementById("cy").value = (data[0])[0].coordenaday;
 		document.getElementById("state").checked = (data[0])[0].estado;
 
-		var url = ("{{ url('storage/'.'img') }}").replace("img", (data[0])[0].imagen);
-		document.getElementById('review').src = url;
+		document.getElementById('review').src = "{!! asset('storage/poiImages/') !!}"+"/"+(data[0])[0].imagen;
 
 		document.getElementById("stateText").textContent = (data[0])[0].estado ? "Activo" : "Inactivo";
 

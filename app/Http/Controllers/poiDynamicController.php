@@ -36,7 +36,7 @@ class poiDynamicController extends Controller
     //Obtener info de un PoI traido por un ID (Info propia, PoixTipologia)
     public function getSelectedPoi(Request $request){
         $id = $request->get('id');
-        $querysP = Poi::select('id_poi', 'nombre', 'coordenadax', 'coordenaday', 'tiempoestancia', 'descripcion', 'estado', 'fk_id_municipio','imagen')->where('id_poi', '=', $id)->get();
+        $querysP = Poi::select('id_poi', 'nombre', 'coordenadax', 'coordenaday', 'costo', 'tiempoestancia', 'descripcion', 'estado', 'fk_id_municipio','imagen')->where('id_poi', '=', $id)->get();
 
         $querysPT = Poi_Tipologia::select('fk_id_tipologia')->where('fk_id_poi', '=', $id)->where('estado', '=', true)->get();
 
@@ -55,13 +55,13 @@ class poiDynamicController extends Controller
 
     //Obtener info de todos los PoIs (Info de PoI (ID, nombre))
     public function getAllPois(Request $request){
-        $quantity = $request->get('quantity');
-        if($quantity=="1"){
-            $querys = Poi::select('id_poi', 'nombre')->get();
-            return $querys;
+        $all = $request->get('quantity');
+        if($all=="1"){
+            $pois = Poi::select('id_poi', 'nombre')->get();
+            return $pois;
         }else{
-            $querys = Poi::select('id_poi', 'nombre')->where('estado','=','true')->get();
-            return $querys;
+            $pois = Poi::select('id_poi', 'nombre')->where('estado','=',1)->get();
+            return $pois;
         }
     }
 
@@ -69,37 +69,13 @@ class poiDynamicController extends Controller
     public function getAllSelectedPoi(Request $request){
         $id = $request->get('id');
 
-        $querysP = Poi::select('id_poi', 'nombre', 'coordenadax', 'coordenaday', 'tiempoestancia', 'descripcion', 'estado', 'fk_id_municipio', 'imagen')->where('id_poi', '=', $id)->get();
+        $poi = Poi::select('nombre', 'coordenadax', 'coordenaday', 'costo', 'tiempoestancia', 'descripcion', 'estado', 'imagen')->where('id_poi', '=', $id)->get();
 
-        $querysM = Municipio::get();
-        $querysT = Tipologia::get();
+        $tipologias =Tipologia::select('nombre')->leftjoin('poi_tipologia','fk_id_tipologia','=','id_tipologia')->where([['fk_id_poi','=',$id],['poi_tipologia.estado','=',1],['tipologia.estado','=',1]])->get();
 
-        $querysPT = Poi_Tipologia::select('fk_id_tipologia')->where('fk_id_poi', '=', $id)->where('estado', '=', true)->get();
+        $municipio = Poi::select('municipio.nombre')->leftjoin('municipio','id_municipio','=','fk_id_municipio')->where('id_poi','=',$id)->get();
 
-        $dataM = [];
-
-        foreach ($querysM as $queryM) {
-            if($queryM->id_municipio == $querysP[0]->fk_id_municipio){
-                $dataM[] = [
-                    'nombre' => $queryM->nombre,
-                    'id' => $queryM->id_municipio
-                ];
-            }
-        }
-
-        $dataPT = [];
-
-        foreach ($querysPT as $queryPT) {
-            foreach ($querysT as $queryT) {
-                if($queryPT->fk_id_tipologia == $queryT->id_tipologia){
-                    $dataPT[] = [
-                        'nombre' => $queryT->nombre,
-                        'id' => $queryT->id_tipologia
-                    ];
-                }
-            }
-        }
-        return [$querysP, $dataM, $dataPT];
+        return [$poi, $municipio, $tipologias];
     }
 
     

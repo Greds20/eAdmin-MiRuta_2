@@ -1,5 +1,4 @@
 <script type="text/javascript">
-    fillList();
     function fillList(){
     	if($("#showAll").is(":checked"))
 			$all = "1";
@@ -23,4 +22,5 @@
 			}
 		});
     }
+    fillList();
 </script>

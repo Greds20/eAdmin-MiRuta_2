@@ -4,7 +4,7 @@
 	<div class="rowsForm">
 		<h3>Nombre</h3>
 		<div class="divInputxButton">
-			<input type="text" name="name" placeholder="Ingresar nombre del PoI" required="" maxlength="30" id="name" style="width: 90%;" autocomplete="off">
+			<input type="text" name="name" placeholder="Ingresar nombre del PoI" required="" maxlength="30" width="100%" id="name" autocomplete="off" class="inputSimple elementRM">
 			<a href="#" onclick="showPanel('#searchPanel')"><img src="{{ asset("img/icons/searchIcon.png") }}"></a>
 		</div>
 	</div>
@@ -55,6 +55,7 @@
 		<h3>Descripción</h3>
 		<textarea class="textarea" name="description" required="" maxlength="100" style="height: 86px;" id="description"></textarea>
 	</div>
+	<input type="checkbox" id="showAll" hidden="" checked="">
 	<div class="monoDiv divBottomForm">
 		<button class="formAddPoiBtn" type="submit">Guardar</button>
 	</div>

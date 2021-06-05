@@ -1,7 +1,7 @@
 @extends('layouts.logedBase')
 
 @section('title')
-	<title>eAdmin MiRuta | Gestión de Inventario Turístico | Gestionar Tipologías</title>
+	<title>eAdmin MiRuta | Gestión de Inventario Turístico | Gestión de Tipologías</title>
 @endsection
 
 @section('style')
@@ -30,22 +30,22 @@
 @section('content')
 	<div class="panelContenido">
 		<div class="panelBotones">
-			<a href="{{ route('tipologiaCrud.redirecToSection', "agregar") }}" class="{{$section=="agregar" ? 'panelBotonesActived' : 'panelBotonesInactived'}}"><span>Agregar</span></a>
-			<a href="{{ route('tipologiaCrud.redirecToSection', "modificar")}}" class="{{$section=="modificar" ? 'panelBotonesActived' : 'panelBotonesInactived'}}"><span>Modificar</span></a>
-			<a href="{{ route('tipologiaCrud.redirecToSection', "consultar") }}" class="{{$section=="consultar" ? 'panelBotonesActived' : 'panelBotonesInactived'}}"><span>Consultar</span></a>
+			<a href="{{ route('tipologia.redirecToSection', "agregar") }}" class="{{$section=="agregar" ? 'panelBotonesActived' : 'panelBotonesInactived'}}"><span>Agregar</span></a>
+			<a href="{{ route('tipologia.redirecToSection', "modificar")}}" class="{{$section=="modificar" ? 'panelBotonesActived' : 'panelBotonesInactived'}}"><span>Modificar</span></a>
+			<a href="{{ route('tipologia.redirecToSection', "consultar") }}" class="{{$section=="consultar" ? 'panelBotonesActived' : 'panelBotonesInactived'}}"><span>Consultar</span></a>
 		</div>
-		<div class="divForm" id="divFormulario" style="width: 700px;">
+		<div class="divForm" id="divFormulario" width="700px">
 			@switch($section)
 				@case("agregar")
-					@include('panels.adminTip.add')
+					@include('panels.adminTipology.add')
 				@break
 
 				@case("modificar")
-					@include('panels.adminTip.modify')
+					@include('panels.adminTipology.modify')
 				@break
 
 				@case("consultar")
-					@include('panels.adminTip.consult')
+					@include('panels.adminTipology.consult')
 				@break
 
 				@default
@@ -57,22 +57,15 @@
 
 @section('script')
 	@switch($section)
-		@case("agregar")
-
-		@break
-
 		@case("modificar")
-			@include('scripts.adminTip.modify.selectedTipList')
-			@include('scripts.adminTip.modify.fillNullTipList')
-			@include('scripts.adminTip.searchTip')
+			@include('scripts.adminTipology.modify.selectedTipList')
+			@include('scripts.adminTipology.modify.fillNullTipList')
+			@include('scripts.adminTipology.searchTip')
 			@include('scripts.setVCheckToInput')
 		@break
 
 		@case("consultar")
-			@include('scripts.adminTip.consult.selectedTipList')
-			@include('scripts.adminTip.consult.fillNullTipList')
-			@include('scripts.adminTip.searchTip')
-			
+			@include('scripts.adminTipology.List_searchTipologys')
 		@break
 
 		@default

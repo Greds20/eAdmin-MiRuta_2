@@ -37,9 +37,9 @@
 @section('content')
 	<div class="panelContenido">
 		<div class="panelBotones">
-			<a href="{{ route('establecimientoCrud.redirecToSection', "agregar") }}" class="{{$section=="agregar" ? 'panelBotonesActived' : 'panelBotonesInactived'}}"><span>Agregar</span></a>
-			<a href="{{ route('establecimientoCrud.redirecToSection', "modificar")}}" class="{{$section=="modificar" ? 'panelBotonesActived' : 'panelBotonesInactived'}}"><span>Modificar</span></a>
-			<a href="{{ route('establecimientoCrud.redirecToSection', "consultar") }}" class="{{$section=="consultar" ? 'panelBotonesActived' : 'panelBotonesInactived'}}"><span>Consultar</span></a>
+			<a href="{{ route('establecimiento.redirecToSection', "agregar") }}" class="{{$section=="agregar" ? 'panelBotonesActived' : 'panelBotonesInactived'}}"><span>Agregar</span></a>
+			<a href="{{ route('establecimiento.redirecToSection', "modificar")}}" class="{{$section=="modificar" ? 'panelBotonesActived' : 'panelBotonesInactived'}}"><span>Modificar</span></a>
+			<a href="{{ route('establecimiento.redirecToSection', "consultar") }}" class="{{$section=="consultar" ? 'panelBotonesActived' : 'panelBotonesInactived'}}"><span>Consultar</span></a>
 		</div>
 		<div class="divForm" id="divFormulario" style="width: 900px;">
 			@switch($section)
@@ -65,24 +65,21 @@
 @section('script')
 	@switch($section)
 		@case("agregar")
-			@include('scripts.adminEstablishment.addxModify.fill_CB-Towns')
-			@include('scripts.adminEstablishment.addxModify.moveDatas')
-			@include('scripts.adminEstablishment.addxModify.get_Towns')
+			@include('scripts.fillCB_Tipo')
+			@include('scripts.fillCB_Town')
 			@include('scripts.showMap&setCoord')
 		@break
 
 		@case("modificar")
-			@include('scripts.adminEstablishment.modify.selectedEstabList')
-			@include('scripts.adminEstablishment.modify.fillNullEstabList')
-			@include('scripts.adminEstablishment.searchEstablecimiento')
+			@include('scripts.adminEstablishment.List_searchEstablishment')
+			@include('scripts.fillCB_Tipo')
+			@include('scripts.fillCB_Town')
 			@include('scripts.setVCheckToInput')
 			@include('scripts.showMap&setCoord')
 		@break
 
 		@case("consultar")
-			@include('scripts.adminEstablishment.consult.selectedEstabList')
-			@include('scripts.adminEstablishment.consult.fillNullEstabList')
-			@include('scripts.adminEstablishment.searchEstablecimiento')
+			@include('scripts.adminEstablishment.List_searchEstablishment')
 		@break
 
 		@default

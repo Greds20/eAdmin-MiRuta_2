@@ -7,7 +7,6 @@ use App\Models\Tipologia;
 
 class tipologiaDynamicController extends Controller
 {
-
     public function searchATip(Request $request){
         if(is_null($request->get('term'))){
         	if($request->get('state') == "1"){

@@ -34,14 +34,22 @@ Route::get('/inventario/gestionar-tipologias', function () {
 });
 
 	//Redireccionar a sección
-Route::get('/inventario/gestionar-tipologias/{section}', 'tipologiaCrudController@redirecToSection')->name('tipologiaCrud.redirecToSection');
+Route::get('/inventario/gestionar-tipologias/{section}', 'tipologiaController@redirecToSection')->name('tipologia.redirecToSection');
 
 	//CRUD Crear
-Route::post('/inventario/gestionar-tipologias/agregar', 'tipologiaCrudController@store')->name('tipologiaCrud.store');
+Route::post('/inventario/gestionar-tipologias/agregar', 'tipologiaController@store')->name('tipologia.store');
 
 	//CRUD Actualizar
-Route::post('/inventario/gestionar-tipologias/modificar', 'tipologiaCrudController@update')->name('tipologiaCrud.update');
+Route::post('/inventario/gestionar-tipologias/modificar', 'tipologiaController@update')->name('tipologia.update');
 
+		//Obtener tipologias
+Route::get('obtener-tipologias', 'tipologiaController@getTipologias')->name('tipologia.getTipologias');
+
+		//Obtener tipologia
+Route::get('obtener-tipologia', 'tipologiaController@getTipologia')->name('tipologia.getTipologia');
+
+		//Buscar tipologias
+Route::get('buscar-tipologias', 'tipologiaController@searchTipologias')->name('tipologia.searchTipologias');
 
 
 //Gestionar establecimientos ----------------------------
@@ -51,14 +59,22 @@ Route::get('/inventario/gestionar-establecimientos', function () {
 });
 
 	//Redireccionar a sección
-Route::get('/inventario/gestionar-establecimientos/{section}', 'establecimientoCrudController@redirecToSection')->name('establecimientoCrud.redirecToSection');
+Route::get('/inventario/gestionar-establecimientos/{section}', 'establecimientoController@redirecToSection')->name('establecimiento.redirecToSection');
 
 	//CRUD Crear
-Route::post('/inventario/gestionar-establecimientos/agregar', 'establecimientoCrudController@store')->name('establecimientoCrud.store');
+Route::post('/inventario/gestionar-establecimientos/agregar', 'establecimientoController@store')->name('establecimiento.store');
 
 	//CRUD Actualizar
-Route::post('/inventario/gestionar-establecimientos/modificar', 'establecimientoCrudController@update')->name('establecimientoCrud.update');
+Route::post('/inventario/gestionar-establecimientos/modificar', 'establecimientoController@update')->name('establecimiento.update');
 
+//Obtener establecimientos
+Route::get('obtener-establecimientos', 'establecimientoController@getEstablecimientos')->name('establecimiento.getEstablecimientos');
+
+		//Obtener tipologia
+Route::get('obtener-establecimiento', 'establecimientoController@getEstablecimiento')->name('establecimiento.getEstablecimiento');
+
+		//Buscar establecimientos
+Route::get('buscar-establecimientos', 'establecimientoController@searchEstablecimientos')->name('establecimiento.searchEstablecimientos');
 
 
 //Gestionar poi-factor ----------------------------
@@ -212,7 +228,11 @@ Route::get('obtener-log/log', 'logDynamicController@consultLog')->name('logDynam
 
 
 //Global
-Route::get('obtener-municipios', 'getGRecordsController@getMunicipio')->name('getGRecords.getMunicipio');
+Route::get('obtener-municipios', 'getGRecordsController@getMunicipios')->name('getGRecords.getMunicipios');
+
+Route::get('obtener-tipos-establecimientos', 'getGRecordsController@getTipos')->name('getGRecords.getTipos');
+
+
 
 	//Crear storage-link accediendo a la dirección URL "storage-link"
 Route::get('storage-link', function(){

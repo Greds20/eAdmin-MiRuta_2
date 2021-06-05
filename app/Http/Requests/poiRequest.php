@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class poiCxURequest extends FormRequest
+class poiRequest extends FormRequest
 {
     public function authorize()
     {
@@ -17,7 +17,7 @@ class poiCxURequest extends FormRequest
             'name' => 'required|min:1|max:30',
             'time' => 'required|integer|digits_between:0,3|min:1|max:720',
             'image' => 'image|mimes:jpeg,png,jpg',
-            'town' => 'required|integer|digits_between:0,2|min:1',
+            'town' => 'required|integer|min:1|max:127',
             'cx' => 'required|numeric|between:-180,180',
             'cy' => 'required|numeric|between:-90,90',
             'cost' => 'required|integer|min:0|max:999999',
@@ -45,15 +45,15 @@ class poiCxURequest extends FormRequest
 
             'town.required' => 'El ID del municipio es requerido.',
             'town.integer' => 'El ID del municipio debe ser entero.',
-            'town.digits_between' => 'Máximo dos dígitos en el ID del municipio.',
             'town.min' => 'El ID del municipio debe ser mayor a 0.',
+            'town.max' => 'El ID del municipio súpera el límite establecido.',
 
             'cx.required' => 'La coordenada del PoI es requerido.',
-            'cx.numeric' => 'La longitud debe se de tipo numerico.',
+            'cx.numeric' => 'La longitud debe se de tipo numérico.',
             'cx.between' => 'La longitud debe estar entre -180 y 180.',
 
             'cy.required' => 'La coordenada del PoI es requerido.',
-            'cy.numeric' => 'La latitud debe se de tipo numerico.',
+            'cy.numeric' => 'La latitud debe se de tipo numérico.',
             'cy.between' => 'La latitud debe estar entre -90 y 90.',
 
             'cost.required' => 'El costo es requerido.',

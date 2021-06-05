@@ -888,14 +888,6 @@ iframe {
   height: 100%;
 }
 
-.divInputxButton input{
-  height: 100%;
-  background: #f2f2f2;
-  font-size: 18px;
-  padding-left: 10px;
-  padding-right: 10px;
-}
-
 .divCheckSpan{
   display: flex;
   align-items: center;

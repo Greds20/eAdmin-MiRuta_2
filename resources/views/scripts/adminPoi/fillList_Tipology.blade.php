@@ -3,14 +3,6 @@
 		url: "{{route('poiDynamic.fillAdminPoi')}}",
 		type: 'GET',
 		success: function(data){
-			var select = document.getElementById('town');
-			for(var i=0; i<(data[0]).length;i++){
-				var opt = document.createElement('option');
-				opt.value = (data[0])[i].ID_MUNICIPIO;
-				opt.innerHTML = (data[0])[i].nombre;
-				select.appendChild(opt);
-			}
-
 			var ul = document.getElementById("listadoTipo");
 			for(var i=0; i<(data[1]).length;i++){
 

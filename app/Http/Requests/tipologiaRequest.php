@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class CreateEstablecimientoRequest extends FormRequest
+class tipologiaRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -32,11 +32,11 @@ class CreateEstablecimientoRequest extends FormRequest
     public function messages()
     {
         return [
-            // 'id.*.required' => 'Campo obligatorio',
-            'name.required' => 'Campo nombre obligatorio',
-            'description.required' => 'Campo descripción obligatorio',
-            'name.max' => 'Máximo 30 carácteres en el campo nombre',
-            'description.max' => 'Máximo 70 carácteres en el campo descripción',
+            'name.required' => 'El nombre es requerido.',
+            'name.max' => 'Longitud del nombre excedido.',
+
+            'description.required' => 'La descripción es requerida.',
+            'description.max' => 'Longitud de la descripción excedido.',
         ];
     }
 }

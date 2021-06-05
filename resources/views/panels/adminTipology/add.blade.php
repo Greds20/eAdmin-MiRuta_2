@@ -1,4 +1,4 @@
-<form method="POST" action="{{ route('tipologiaCrud.store') }}" enctype="multipart/form-data">
+<form method="POST" action="{{ route('tipologia.store') }}" enctype="multipart/form-data">
 	@csrf
 	<div class="monoDiv">
 		<h3>Nombre</h3>

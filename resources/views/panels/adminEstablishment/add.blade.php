@@ -1,8 +1,13 @@
-<form method="POST" action="{{ route('establecimientoCrud.store') }}" enctype="multipart/form-data">
+<form method="POST" action="{{ route('establecimiento.store') }}" enctype="multipart/form-data">
 	@csrf
-	<div class="rowsForm">
+	<div class="monoDiv">
 		<h3>Nombre</h3>
 		<input type="text" class="inputSimple" name="name" placeholder="Ingresar nombre del establecimiento" required="" maxlength="30" autocomplete="off" value="{{ old('name') }}">
+	</div>
+	<div class="rowsForm">
+		<h3>Tipo</h3>
+		<select name="type" class="select" id="type" required="">
+		</select>
 	</div>
 	<div class="rowsForm">
 		<h3>Municipio</h3>

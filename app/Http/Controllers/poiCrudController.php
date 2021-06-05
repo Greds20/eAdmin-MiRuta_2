@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\poiCxURequest;
+use App\Http\Requests\poiRequest;
 use App\Models\Log;
 use Carbon\Carbon;
 use App\Models\Municipio;
@@ -20,7 +20,7 @@ class poiCrudController extends Controller
         return view('adminPoi', ['section' => $section]);
     }
 
-    public function store(poiCxURequest $request)
+    public function store(poiRequest $request)
     {
         $requestV = $request->validated();
         $requestEx = $request->validate([
@@ -108,21 +108,21 @@ class poiCrudController extends Controller
         }
     }
 
-    public function update(poiCxURequest $request)
+    public function update(poiRequest $request)
     {
         $requestV = $request->validated();
         $requestEx = $request->validate([
-            'id' => 'required|integer|min:0|max:999',
+            'id' => 'required|integer|min:0|max:32767',
             'state' => 'required|integer|digits_between:0,1'
         ],[
-            'id.required' => 'El ID es requerido',
-            'id.integer' => 'El ID debe estar en números enteros',
-            'id.min' => 'El ID debe ser mayor a 0',
-            'id.max' => 'El ID debe ser menor a 1000',
+            'id.required' => 'El ID es requerido.',
+            'id.integer' => 'El ID debe estar en números enteros.',
+            'id.min' => 'El ID debe ser mayor a 0.',
+            'id.max' => 'El ID súpera el límite establecido.',
 
-            'state.required' => 'Estado es requerido',
-            'state.integer' => 'El estado debe estar en números enteros',
-            'state.digits_between' => 'El estado no está dentro del rango'
+            'state.required' => 'El estado es requerido.',
+            'state.integer' => 'El estado debe estar en números enteros.',
+            'state.digits_between' => 'El estado no está dentro del rango establecido.'
         ]);
 
         //Comprobar que el poi existe
@@ -130,6 +130,13 @@ class poiCrudController extends Controller
         $countPoi=Poi::select('id_poi')->where('id_poi','=',$requestEx['id'])->count();
         if($countPoi==0){
             $errorvPoi = true;
+        }
+
+        //Comprobar que el nombre del poi no se repita
+        $errorRName = false;
+        $nctNamePoi = Poi::select('nombre')->where([['nombre','=',$requestV['name']],['id_poi','<>',$requestEx['id']]])->count();
+        if($nctNamePoi>0){
+            $errorRName = true;
         }
 
         //Comprobar que tipologias seleccionadas existen
@@ -159,7 +166,7 @@ class poiCrudController extends Controller
         }
 
         $errores = [];
-        if($errorvMun || $errorvPoi || $errorvTipo || $errorLongCord){
+        if($errorvMun || $errorvPoi || $errorvTipo || $errorLongCord || $errorRName){
             if($errorvMun)
                 array_push($errores, "El municipio escogido no se encuentra registrado.");
             if($errorEstancia)
@@ -168,6 +175,8 @@ class poiCrudController extends Controller
                 array_push($errores, "El ID no existe.");
             if($errorLongCord)
                 array_push($errores, "Longitud de las coordenadas excedido.");
+            if($errorRName)
+                array_push($errores, "Nombre de duplicado.");
             return view('adminPoi', ['section' => 'modificar', 'errores' => $errores]);
         }else{
             $path = (Poi::select('imagen')->where('id_poi','=',$requestEx["id"])->get())[0]->imagen;

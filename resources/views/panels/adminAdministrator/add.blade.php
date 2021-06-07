@@ -9,14 +9,6 @@
 		<h3>Alias</h3>
 		<input type="text" class="inputSimple" name="alias" placeholder="Ingrese el alias o nombre de usuario" required="" maxlength="30" autocomplete="off" value="{{ old('alias') }}">
 	</div>
-	<div class="monoDiv">
-		<h3>Correo eléctronico</h3>
-		<input type="text" class="inputSimple" name="email" placeholder="Ingrese el correo eléctronico" required="" maxlength="40" autocomplete="off" value="{{ old('email') }}">
-	</div>
-	<div class="monoDiv">
-		<h3>Contraseña</h3>
-		<input type="password" class="inputSimple" name="pass" placeholder="Ingrese la contraseña" required="" maxlength="40">
-	</div>
 	<div class="monoDivSep">
 		<h3>Nombre</h3>
 	</div>
@@ -34,6 +26,23 @@
 	</div>
 	<div class="rowsForm">
 		<input type="text" class="inputSimple" name="scsurname" maxlength="10" placeholder="Ingrese el segundo apellido" required="" autocomplete="off" value="{{ old('scsurname') }}">
+	</div>
+	<div class="monoDiv">
+		<h3>Correo eléctronico</h3>
+		<input type="text" class="inputSimple" name="email" placeholder="Ingrese el correo eléctronico" required="" maxlength="40" autocomplete="off" value="{{ old('email') }}">
+	</div>
+	<div class="monoDivSep">
+		<h3>Contraseña</h3>
+	</div>
+	<div class="rowsForm divForPass">
+		<input type="password" class="inputSimple" name="pass" id="pass" placeholder="Ingrese la contraseña" required="" maxlength="40">
+		<a href="#" class="show" id="showP"><img src="{{ asset("img/icons/showIcon.png") }}"></a>
+		<a href="#" class="hide" id="hideP"><img src="{{ asset("img/icons/hideIcon.png") }}"></a>
+	</div>
+	<div class="rowsForm divForPass">
+		<input type="password" class="inputSimple" name="passR" id="passR" placeholder="Confirmar contraseña" required="" maxlength="40">
+		<a href="#" class="show" id="showPR"><img src="{{ asset("img/icons/showIcon.png") }}"></a>
+		<a href="#" class="hide" id="hidePR"><img src="{{ asset("img/icons/hideIcon.png") }}"></a>
 	</div>
 	<div class="monoDiv divBottomForm">
 		<button class="formAddPoiBtn" type="submit">Guardar</button>

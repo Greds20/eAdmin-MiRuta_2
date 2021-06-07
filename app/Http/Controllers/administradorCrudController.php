@@ -3,8 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Administrador;
-use App\Http\Requests\CreateAdministradorRequest;
-use App\Http\Requests\ModifyAdministradorRequest;
+use App\Http\Requests\administradorRequest;
 use App\Mail\eAdminEmail;
 use App\Models\Rol;
 use Illuminate\Http\Request;
@@ -19,12 +18,13 @@ class administradorCrudController extends Controller
         return view('adminAdministrator', ['section' => $section]);
     }
 
-    public function store(CreateAdministradorRequest $request)
+    public function store(administradorRequest $request)
     {
         $requestV = $request->validated();
+
         //Comprobar que el alias no existe
         $errorName = false;
-        $nctNameAdmin = Administrador::select('alias')->whereRaw('UPPER(alias)=UPPER(\''.$requestV['alias'].'\')')->count();
+        $nctNameAdmin = Administrador::select('alias')->where('alias','=',$requestV['alias'])->count();
         if($nctNameAdmin>0){
             $errorName = true;
         }
@@ -36,18 +36,26 @@ class administradorCrudController extends Controller
             $errorIdRol = true;
         }
 
+        //Comprobar que las contraseñas son iguales
+        $errorPass=false;
+        if($requestV['pass']!=$requestV['passR']){
+            $errorPass = true;
+        }
+
         //Comprobar que el correo no existe
         $ctEmail = Administrador::select('id_administrador')->where('correo','=',$requestV['email'])->count();
         $errorxEmail = ($ctEmail > 0) ? true : false;
 
         $errores = [];
-        if($errorName || $errorIdRol || $errorxEmail){
+        if($errorName || $errorIdRol || $errorxEmail || $errorPass){
             if($errorName)
-                array_push($errores, "Nombre del alias duplicado.");
+                array_push($errores, "Alias no disponible.");
             if($errorIdRol)
-                array_push($errores, "El ID del rol seleccionado no existe.");
+                array_push($errores, "El rol seleccionado no existe.");
             if($errorxEmail)
                 array_push($errores, "El correo electrónico ingresado ya está en uso.");
+            if($errorPass)
+                array_push($errores, "La contraseña y la confirmación de la contraseña no corresponden.");
             return view('adminAdministrator', ['section' => 'agregar', 'errores' => $errores]);
         }else{ 
             Administrador::create([
@@ -57,8 +65,10 @@ class administradorCrudController extends Controller
                 'prapellido' => $requestV["frsurname"],
                 'sgapellido' => $requestV["scsurname"],
                 'contrasena' => $requestV["pass"],
+                'recuperador' => "0",
+                'tiempoRecuperador' => "2000-01-01 00:00:00",
                 'correo' => $requestV["email"],
-                'estado' => true,
+                'estado' => 1,
                 'fk_id_rol' => $requestV["rol"]
             ]);
             Log::create([
@@ -73,9 +83,25 @@ class administradorCrudController extends Controller
     }
 
     
-    public function update(ModifyAdministradorRequest $request)
+    public function update(Request $request)
     {
-        $requestV = $request->validated();
+        $requestV = $request->validate([
+            'id' => 'required|integer|min:0|max:127',
+            'alias' => 'required|max:30',
+            'state' => 'required|integer|digits_between:0,1'
+        ],[
+            'id.required' => 'El ID es requerido.',
+            'id.integer' => 'El ID debe estar en números enteros.',
+            'id.min' => 'El ID debe ser mayor a 0.',
+            'id.max' => 'El ID súpera el límite establecido.',
+
+            'alias.required' => 'Alias de usuario requerido.',
+            'alias.max' => 'El alias del usuario debe tener menos de 30 carácteres.',
+
+            'state.required' => 'El estado es requerido.',
+            'state.integer' => 'El estado debe estar en números enteros.',
+            'state.digits_between' => 'El estado no está dentro del rango establecido.'
+        ]);
 
         //Comprobar que existe el id
         $errorvId = false;
@@ -84,7 +110,7 @@ class administradorCrudController extends Controller
         $admin = Administrador::select('id_administrador','alias','correo')->where('id_administrador','=',$requestV['id'])->get();        //COnsigue ID y correo
         if(count($admin)>0){
             //Comprobar que el alias no se repite
-            $nctAlias = Administrador::select('alias')->whereRaw('UPPER(alias)=UPPER(\''.$requestV['alias'].'\')')->where('id_administrador','<>',$requestV['id'])->count();
+            $nctAlias = Administrador::select('alias')->where([['id_administrador','<>',$requestV['id']],['alias','=',$requestV['alias']]])->count();
             if($nctAlias>0){
                 $errorAlias = true;
             }
@@ -104,25 +130,25 @@ class administradorCrudController extends Controller
                 array_push($errores, "No tiene permisos para modificar el usuario SISTEMA.");
             return view('adminAdministrator', ['section' => 'modificar', 'errores' => $errores]);
         }else{
-            $estado = ($requestV["state"]==0) ? false : true;
-            if(isset($requestV["recover"])){
-                $pass = $this->randomPass();
-                $msgfirst = "Le informamos que su solicitud de cambio de contraseña se realizo con exito.";
-                $msglast = "Le recomendamos cambiar prontamente la contraseña.";
-                $contend = [ 'subject' => 'Recuperación de contraseña', 'alias' => $requestV["alias"], 'pass' => $pass, 'messagefirst' => $msgfirst, 'messagelast' => $msglast ];
-                Mail::to($admin[0]->correo)->queue(new eAdminMail($contend));
-                //return new eAdminMail($contend);
-                Administrador::where('id_administrador', $requestV["id"])->update([
+            // if(isset($requestV["recover"])){
+            //     $pass = $this->randomPass();
+            //     $msgfirst = "Le informamos que su solicitud de cambio de contraseña se realizo con exito.";
+            //     $msglast = "Le recomendamos cambiar prontamente la contraseña.";
+            //     $contend = [ 'subject' => 'Recuperación de contraseña', 'alias' => $requestV["alias"], 'pass' => $pass, 'messagefirst' => $msgfirst, 'messagelast' => $msglast ];
+            //     Mail::to($admin[0]->correo)->queue(new eAdminMail($contend));
+            //     //return new eAdminMail($contend);
+            //     // Administrador::where('id_administrador', $requestV["id"])->update([
+            //     //     'alias' => $requestV["alias"],
+            //     //     'contrasena' => $pass,
+            //     //     'estado' => $requestEx["state"]
+            //     // ]);
+            // }else{
+                
+            // }
+            Administrador::where('id_administrador', $requestV["id"])->update([
                     'alias' => $requestV["alias"],
-                    'contrasena' => $pass,
-                    'estado' => $estado
+                    'estado' => $requestV["state"]
                 ]);
-            }else{
-                Administrador::where('id_administrador', $requestV["id"])->update([
-                    'alias' => $requestV["alias"],
-                    'estado' => $estado
-                ]);
-            }
             Log::create([
                 'fecha' => Carbon::now()->toDateString(),
                 'hora' => Carbon::now()->toTimeString(),

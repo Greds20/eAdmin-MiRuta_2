@@ -1,12 +1,11 @@
 <script type="text/javascript">
 	function fillNullUserList(){
 		var term = $('#searchName').val();
-		var estado = ($("#showAll").is(":checked")) ? "1" : "0";
 		$.ajax({
 			url: "{{route('administradoresDynamic.searchUser')}}",
 			data: {
 				term: term,
-				state: estado
+				state: "1"
 			},
 			success: function(data){
 				var ul = document.getElementById("listadoPois");

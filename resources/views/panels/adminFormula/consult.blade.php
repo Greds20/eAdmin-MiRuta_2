@@ -3,7 +3,7 @@
 		<div class="monoDiv">
 			<h3>Nombre fórmula</h3>
 			<div class="divInputxButton">
-				<input type="text" id="nameForm" readonly="" style="width: 93%;">
+				<input type="text" id="nameForm" class="inputSimple elementRM" width="100%" readonly="">
 				<a href="#" onclick="showPanel('#itemShowPanel')"><img src="{{ asset("img/icons/searchIcon.png") }}"></a>
 			</div>
 		</div>

@@ -64,6 +64,7 @@
 @section('script')
 	@switch($section)
 		@case("agregar")
+			@include('scripts.adminFormula.addxmod.createSFOriginal')
 			@include('scripts.adminFormula.addxmod.promDetect')
 			@include('scripts.adminFormula.addxmod.sumDetect')
 			@include('scripts.adminFormula.addxmod.adminRowF')

@@ -5,7 +5,7 @@
 		<h3>Nombre</h3>
 		<div class="divInputxButton">
 			<input type="hidden" id="idpoi" name="idpoi" required="">
-			<input type="text" id="name" style="width: 95%;" disabled="">
+			<input type="text" id="name" class="inputSimple elementRM" disabled="">
 			<a href="#" onclick="showPanel('#searchPanel')"><img src="{{ asset("img/icons/searchIcon.png") }}"></a>
 		</div>
 	</div>

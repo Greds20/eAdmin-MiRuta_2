@@ -17,15 +17,15 @@ class administradoresDynamicController extends Controller
     public function searchUser(Request $request){
         if(is_null($request->get('term'))){
         	if($request->get('state') == "1"){
-        		$querys = Administrador::select('id_administrador', 'alias')->get();
+        		$querys = Administrador::select('id_administrador', 'alias')->where('id_administrador','<>',1)->get();
         	}else{
-        		$querys = Administrador::select('id_administrador', 'alias')->where('estado','=','true')->get();
+        		$querys = Administrador::select('id_administrador', 'alias')->where([['estado','=',1],['id_administrador','<>',1]])->get();
         	}
         }else{
         	if($request->get('state') == "1"){
-        		$querys = Administrador::select('id_administrador', 'alias')->where('alias', 'LIKE', '%' . $request->get('term') . '%')->get();
+        		$querys = Administrador::select('id_administrador', 'alias')->where([['alias', 'LIKE', $request->get('term').'%'],['id_administrador','<>','1']])->get();
         	}else{
-        		$querys = Administrador::select('id_administrador', 'alias')->where([['alias', 'LIKE', '%' . $request->get('term') . '%'],['estado','=','true']])->get();
+        		$querys = Administrador::select('id_administrador', 'alias')->where([['alias', 'LIKE', $request->get('term').'%'],['estado','=',1],['id_administrador','<>','1']])->get();
         	}
         }
         
@@ -42,7 +42,7 @@ class administradoresDynamicController extends Controller
 
     //Obtener info de un usuario traida por un ID (Info propia)
     public function getAllSelectedUser(Request $request){
-        $sUser = Administrador::select('prnombre', 'sgnombre', 'prapellido', 'sgapellido', 'estado','fk_id_rol','correo')->where('id_administrador', '=', $request->id)->get();
+        $sUser = Administrador::select('alias','prnombre', 'sgnombre', 'prapellido', 'sgapellido', 'estado','fk_id_rol','correo')->where('id_administrador', '=', $request->id)->get();
 
         $sRol = Rol::select('nombre')->where('id_rol','=',$sUser[0]->fk_id_rol)->get();
 

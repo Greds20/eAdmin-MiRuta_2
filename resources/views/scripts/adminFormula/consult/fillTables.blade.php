@@ -7,8 +7,8 @@
 				id: idform
 			},
 			success: function(data){
-				document.getElementById("stateForm").checked = data[0].estado;
-				document.getElementById("stateText").textContent = (data[0].estado) ? "Activo" : "Inactivo";
+				document.getElementById("stateForm").checked = (data[0].estado == "1") ? true : false;
+				document.getElementById("stateText").textContent = (data[0].estado == "1") ? "Activo" : "Inactivo";
 				document.getElementById("descForm").innerHTML = data[0].descripcion;
 
 				var tbodyF = document.getElementById('factorReg');

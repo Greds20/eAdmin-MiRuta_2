@@ -24,7 +24,7 @@ class formulaCrudController extends Controller
 
         //Comprobar que el nombre de la formula no se repita
         $errorNameForm = false;
-        $ctName = Formula::select('nombre')->whereRaw('UPPER(nombre)=UPPER(\''.$requestV['nameForm'].'\')')->count();
+        $ctName = Formula::select('nombre')->where('nombre','=',$requestV['nameForm'])->count();
         $errorNameForm = ($ctName==0) ? false : true;
         
         //Comprobar que el minimo sea menor que el maximo
@@ -35,16 +35,18 @@ class formulaCrudController extends Controller
                 break;
             }
         }
-        for($i=0; $i<count($requestV['vminSF']); $i++){
-            if(($requestV['vminSF'])[$i]>=($requestV['vmaxSF'])[$i]){
-                $errorMayor=true;
-                break;
+        if(isset($requestV['nameV'])){
+            for($i=0; $i<count($requestV['vminSF']); $i++){
+                if(($requestV['vminSF'])[$i]>=($requestV['vmaxSF'])[$i]){
+                    $errorMayor=true;
+                    break;
+                }
             }
         }
 
         //Comprobar que la operación sea 100%
         $contProm = 0;
-        if(isset($requestV['idV'])){
+        if(isset($requestV['nameV'])){
             for($i = 0; $i<count($requestV['vmaxV']); $i++){
                 $contProm = ($requestV['vmaxV'])[$i] + $contProm;
             }
@@ -83,11 +85,11 @@ class formulaCrudController extends Controller
 
         //Comprobar que el tamaño de SF sea igual a la sumatoria de la cantidad de subfactores
         $sumCSF=0;
-        for($i=0;$i<count($requestV['nSfactor']);$i++){
-            $sumCSF=($requestV['nSfactor'])[$i]+$sumCSF;
-        }
         $errorSumCSFxSF = false;
         if(isset($requestV['nameSF'])){
+            for($i=0;$i<count($requestV['nSfactor']);$i++){
+                $sumCSF=($requestV['nSfactor'])[$i]+$sumCSF;
+            }
             if($sumCSF!=count($requestV['nameSF'])){
                 $errorSumCSFxSF = true;
             }
@@ -97,6 +99,7 @@ class formulaCrudController extends Controller
             }
         }
 
+
         //Agregar errores a un array y volve a la pagina si se encontraron errores
         $errores = [];
         if($errorNameForm || $errorMayor || $errorSum || $errorTamDifF || $errorTamDifV || $errorTamDifSF || $errorSumCSFxSF){
@@ -105,7 +108,7 @@ class formulaCrudController extends Controller
             if($errorMayor)
                 array_push($errores, "Los valores min. y max. están invertidos.");
             if($errorSum)
-                array_push($errores, "El promedio es mayor a 100%.");
+                array_push($errores, "El promedio es diferente a 100%.");
             if($errorTamDifF)
                 array_push($errores, "No han sido llenados todos los campos en la tabla de factores.");
             if($errorTamDifV)
@@ -119,7 +122,7 @@ class formulaCrudController extends Controller
             $idform = (Formula::create([
                             'nombre' => $requestV['nameForm'],
                             'descripcion' => $requestV['descForm'],
-                            'estado' => true
+                            'estado' => 1
                         ]))->id_formula;
             for($i = 0; $i < count($requestV['nameF']); $i++){
                 Factor::create([
@@ -128,7 +131,7 @@ class formulaCrudController extends Controller
                     'valorminimo' => ($requestV['vminF'])[$i],
                     'valormaximo' => ($requestV['vmaxF'])[$i],
                     'peso' => ($requestV['weightF'])[$i],
-                    'estado' => true,
+                    'estado' => 1,
                     'fk_id_formula' => $idform
                 ]);
             }
@@ -139,8 +142,7 @@ class formulaCrudController extends Controller
                                     'nombre' => ($requestV['nameV'])[$i],
                                     'descripcion' => ($requestV['descriptionV'])[$i],
                                     'valormaximo' => ($requestV['vmaxV'])[$i],
-                                    'peso' => ($requestV['weightV'])[$i],
-                                    'estado' => true
+                                    'estado' => 1
                                 ]))->id_variable;
                 }
             }
@@ -154,7 +156,7 @@ class formulaCrudController extends Controller
                                     'valorminimo' => ($requestV['vminSF'])[$cont],
                                     'valormaximo' => ($requestV['vmaxSF'])[$cont],
                                     'peso' => ($requestV['weightSF'])[$cont],
-                                    'estado' => true,
+                                    'estado' => 1,
                                     'fk_id_formula' => $idform
                                 ]))->id_factor;
                         Factor_Variable::create([
@@ -201,24 +203,27 @@ class formulaCrudController extends Controller
                 break;
             }
         }
-        for($i=0; $i<count($requestV['vminSF']); $i++){
-            if(($requestV['vminSF'])[$i]>=($requestV['vmaxSF'])[$i]){
-                $errorMayor=true;
-                break;
+        if(isset($requestV['nameSF'])){
+            for($i=0; $i<count($requestV['vminSF']); $i++){
+                if(($requestV['vminSF'])[$i]>=($requestV['vmaxSF'])[$i]){
+                    $errorMayor=true;
+                    break;
+                }
             }
         }
+        
 
         //Comprobar que la operación sea 100%
         $contProm = 0;
-        if(isset($requestV['idV'])){
+        if(isset($requestV['nameV'])){
             for($i = 0; $i<count($requestV['vmaxV']); $i++){
-                if(($requestV['stateV'])[$i] == "true"){
+                if(($requestV['stateV'])[$i] == "1"){
                     $contProm = ($requestV['vmaxV'])[$i] + $contProm;
                 }
             }
         }
         for($i = 0; $i<count($requestV['weightF']); $i++){
-            if(($requestV['stateF'])[$i] == "true"){
+            if(($requestV['stateF'])[$i] == "1"){
                 $contProm = ($requestV['vmaxF'])[$i] * ($requestV['weightF'])[$i] + $contProm;
             }
         }
@@ -251,17 +256,17 @@ class formulaCrudController extends Controller
             }
         }
 
-        //Comprobar que el estado sea true o false 
+        //Comprobar que el estado sea 1 o 0 
         $errorState = false;
         for ($i=0; $i < count($requestV['stateF']); $i++) { 
-            if(($requestV['stateF'])[$i]!="true" && ($requestV['stateF'])[$i]!="false"){
+            if(($requestV['stateF'])[$i]!=1 && ($requestV['stateF'])[$i]!=0){
                $errorState = true;
                break; 
             }
         }
         if(isset($requestV['nameV'])){
             for ($i=0; $i < count($requestV['stateV']); $i++) { 
-                if(($requestV['stateV'])[$i]!="true" && ($requestV['stateV'])[$i]!="false"){
+                if(($requestV['stateV'])[$i]!=1 && ($requestV['stateV'])[$i]!=0){
                    $errorState = true;
                    break; 
                 }
@@ -269,7 +274,7 @@ class formulaCrudController extends Controller
         }
         if(isset($requestV['nameSF'])){
             for ($i=0; $i < count($requestV['stateSF']); $i++) { 
-                if(($requestV['stateSF'])[$i]!="true" && ($requestV['stateSF'])[$i]!="false"){
+                if(($requestV['stateSF'])[$i]!=1 && ($requestV['stateSF'])[$i]!=0){
                    $errorState = true;
                    break; 
                 }
@@ -278,11 +283,11 @@ class formulaCrudController extends Controller
 
         //Comprobar que el tamaño de SF sea igual a la sumatoria de la cantidad de subfactores
         $sumCSF=0;
-        for($i=0;$i<count($requestV['nSfactor']);$i++){
-            $sumCSF=($requestV['nSfactor'])[$i]+$sumCSF;
-        }
         $errorSumCSFxSF = false;
         if(isset($requestV['nameSF'])){
+            for($i=0;$i<count($requestV['nSfactor']);$i++){
+                $sumCSF=($requestV['nSfactor'])[$i]+$sumCSF;
+            }
             if($sumCSF!=count($requestV['nameSF'])){
                 $errorSumCSFxSF = true;
             }
@@ -292,49 +297,42 @@ class formulaCrudController extends Controller
             }
         }
 
-        //Comprobar que las primeras filas corresponde a los registros de la BBDD
-        // $errorIdvF = false;
-        // $errorIdvV = false;
-        // $idsFac = (isset($request->all)) ? Factor::select('id_factor')->leftjoin('factor_variable', 'id_factor', '=', 'fk_id_factor')->whereNull('fk_id_factor')->where('fk_id_formula', '=', $requestV['idform'])->get() : Factor::select('id_factor')->leftjoin('factor_variable', 'id_factor', '=', 'fk_id_factor')->whereNull('fk_id_factor')->where([['fk_id_formula', '=', $requestV['idform']],['factor.estado','=',true]])->get();
-        // if(isset($requestV['idV'])){
-        //     $idsVar = (isset($request->all)) ? Variable::select('id_variable')->leftjoin('factor_variable','fk_id_variable','=','id_variable')->leftjoin('factor','id_factor','=','fk_id_factor')->where('fk_id_formula','=',$requestV['idform'])->groupBy('id_variable')->get() : Variable::select('id_variable')->leftjoin('factor_variable','fk_id_variable','=','id_variable')->leftjoin('factor','id_factor','=','fk_id_factor')->where([['fk_id_formula','=',$requestV['idform']],['variable.estado','=',true]])->groupBy('id_variable')->get();
-        //     $ctDb = 0;
-        //     for ($i=0; $i < count($requestV['idV']); $i++) { 
-        //         if(is_null(($requestV['idV'])[$i])){
-        //             break;
-        //         }else{
-        //             if(($requestV['idV'])[$i] != $idsVar[$i]->id_variable){
-        //                 $errorIdvV = true;
-        //                 break;
-        //             }else{
-        //                 $ctDb++;
-        //             }
-        //         }
-        //     }
-        //     if($ctDb!=count($idsVar)){
-        //         $errorIdvV = true;
-        //     }
-        // }
-        // $ctDb = 0;
-        // for ($i=0; $i < count($requestV['idF']); $i++) {
-        //     if(is_null(($requestV['idF'])[$i])){
-        //         break;
-        //     }else{
-        //         if(($requestV['idF'])[$i] != $idsFac[$i]->id_factor){
-        //             $errorIdvF = true;
-        //             break;
-        //         }else{
-        //             $ctDb++;    
-        //         }
-        //     }
-        // }
-        // if($ctDb!=count($idsFac)){
-        //     $errorIdvF = true;
-        // }
+        //Comprobar que las variable por lo menos tengan un subfactor activo
+        $errorNoSfxV = false;
+        if(isset($requestV['nameV'])){
+            $cont=0;
+            for($i = 0; $i < count($requestV['nSfactor']); $i++){
+                $contTrue=0;
+                for($j = 0; $j < ($requestV['nSfactor'])[$i]; $j++){
+                    if(($requestV['stateSF'])[$cont]=="1"){
+                        $contTrue++;
+                    }
+                    $cont++;
+                }
+                if($contTrue==0){
+                    $errorNoSfxV = true;
+                    break;
+                }
+            }
+        }
+
+        //Minimo 2 y maximo 10 factores
+        $contActivos=0;
+        for($i=0;$i<count($requestV['stateF']);$i++){
+            $contActivos = (($requestV['stateF'])[$i] == "1") ? $contActivos+1 : $contActivos;
+        }
+        $errorMinF = false;
+        if($contActivos < 2){
+            $errorMinF = true;
+        }
+        $errorMaxF = false;
+        if($contActivos > 10){
+            $errorMaxF = true;
+        }
 
         //Agregar errores a un array y volve a la pagina si se encontraron errores
         $errores = [];
-        if($errorIdvForm || $errorMayor || $errorSum || $errorTamDifF || $errorTamDifV || $errorTamDifSF || $errorNameForm || $errorState || $errorFormX || $errorSumCSFxSF){
+        if($errorIdvForm || $errorMayor || $errorSum || $errorTamDifF || $errorTamDifV || $errorTamDifSF || $errorNameForm || $errorState || $errorFormX || $errorSumCSFxSF || $errorNoSfxV || $errorMinF || $errorMaxF){
             if($errorIdvForm)
                 array_push($errores, "El ID de la fórmula no existe.");
             if($errorMayor)
@@ -355,6 +353,12 @@ class formulaCrudController extends Controller
                 array_push($errores, "La fórmula 'Algoritmo heurístico' no se puede modificar.");
             if($errorSumCSFxSF)
                 array_push($errores, "La cantidad de subfactores y los subfactores no coinciden.");
+            if($errorNoSfxV)
+                array_push($errores, "Las variables deben tener por lo menos un subfactor activo.");
+            if($errorMinF)
+                array_push($errores, "Debe haber minimo dos factores.");
+            if($errorMaxF)
+                array_push($errores, "Debe haber como maximo diez factores.");
             return view('adminFormula', ['section' => 'modificar', 'errores' => $errores]);
         }else{
             Formula::where('id_formula', $requestV['idform'])->update([

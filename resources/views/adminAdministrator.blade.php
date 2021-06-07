@@ -59,6 +59,8 @@
 	@switch($section)
 		@case("agregar")
 			@include('scripts.adminAdministrator.fillRols')
+			@include('scripts.show&hidePass')
+			@include('scripts.verifyPass')
 		@break
 
 		@case("modificar")

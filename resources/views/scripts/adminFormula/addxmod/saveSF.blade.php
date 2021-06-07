@@ -24,7 +24,7 @@
 			var inputTSF = celdasSF[4].getElementsByTagName("input");
 				inputsSF[5].value = inputTSF[0].value;
 			var inputTSF = celdasSF[5].getElementsByTagName("input");
-				inputsSF[6].value = inputTSF[0].checked;
+				inputsSF[6].value = (inputTSF[0].checked) ? "1" : "0";
 		}
 		if(n.value<sFactores.length){
 			for(var i=n.value; i<sFactores.length; i++){
@@ -47,7 +47,7 @@
 			var inputTSF = celdasSF[4].getElementsByTagName("input");
 				inputsSF[5].value = inputTSF[0].value;
 			var inputTSF = celdasSF[5].getElementsByTagName("input");
-				inputsSF[6].value = inputTSF[0].checked;
+				inputsSF[6].value = (inputTSF[0].checked) ? "1" : "0";
 		}
 		filasV[pos.value].querySelector("[name='nSfactor[]']").value = sFactores.length;
 	}

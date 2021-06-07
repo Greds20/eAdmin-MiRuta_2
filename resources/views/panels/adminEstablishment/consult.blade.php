@@ -21,7 +21,7 @@
 	</div>
 	<div class="dosColumnasR">
 		<div class="monoDiv">
-			<h3>Nombre</h3>
+			<h3>Buscar establecimiento</h3>
 			<input type="text" class="inputSimple" placeholder="Ingrese el nombre del establecimiento" id="searchName" autocomplete="off">
 		</div>
 		<div class="divScrollAll" style="height: 376px;">

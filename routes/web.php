@@ -158,22 +158,19 @@ Route::get('gestionar-poi/mostrar-pois', 'poiDynamicController@getAllPois')->nam
 Route::get('gestionar-poi/traer-poi-esp', 'poiDynamicController@getAllSelectedPoi')->name('poiDynamic.getAllSelectedPoi');
 
 //Traer formulas [AdminFormula]
-Route::get('traer-formulas/gestionar-formula', 'factorDynamicController@getAllForm')->name('factorDynamic.getAllForm');
+Route::get('traer-formulas/gestionar-formula', 'formulaDynamicController@getAllForm')->name('formulaDynamic.getAllForm');
 
 //Traer formulas excepto  [AdminFormula]
-Route::get('traer-formula/gestionar-formula', 'factorDynamicController@getForm')->name('factorDynamic.getForm');
+Route::get('traer-formula/gestionar-formula', 'formulaDynamicController@getForm')->name('formulaDynamic.getForm');
 
 //Traer factores y variables de formula seleccionada -> id,all [AdminFormula]
-Route::get('traer-factores/gestionar-formula', 'factorDynamicController@fillTVarxFac')->name('factorDynamic.fillTVarxFac');
+Route::get('traer-factores/gestionar-formula', 'formulaDynamicController@fillTVarxFac')->name('formulaDynamic.fillTVarxFac');
 
 //Traer factores, subfactores y variables de formula seleccionada -> id [AdminFormula]
-Route::get('traer-factoresyvariables/gestionar-formula', 'factorDynamicController@fillTVarxFacxSfac')->name('factorDynamic.fillTVarxFacxSfac');
+Route::get('traer-factoresyvariables/gestionar-formula', 'formulaDynamicController@fillTVarxFacxSfac')->name('formulaDynamic.fillTVarxFacxSfac');
 
 //Traer factores y formula_formula [AdminFormula]
-Route::get('gestionar-formula/traer-formula/{quantity}', 'factorDynamicController@fillTableFormula')->name('factorDynamic.fillTableFormula');
-
-//Revisa si los pois tienen inicializados todos los factores activos [Loged]
-Route::get('inicio/advertencia-poixfactor', 'PoifactorDynamicController@inspectPoi')->name('poiFactorDynamic.inspectPoi');
+Route::get('gestionar-formula/traer-formula/{quantity}', 'formulaDynamicController@fillTableFormula')->name('formulaDynamic.fillTableFormula');
 
 //Obtiene los pois que no tiene emparejamientos completos con los factores [AdminFactorPoi]
 Route::get('gestionar-factorpoi/poisvfactores', 'poiFactorDynamicController@getPoisNoF')->name('poiFactorDynamic.getPoisNoF');
@@ -186,9 +183,6 @@ Route::get('gestionar-factorpoi/buscar-poi', 'poiFactorDynamicController@searchP
 
 //Obtener factores emparejados de PoI seleccionado [AdminFactorPoi]
 Route::get('gestionar-factorpoi/trae-factores-spoi', 'poiFactorDynamicController@getFactoreSPoi')->name('poiFactorDynamic.getFactoreSPoi');
-
-//Buscar pois activos ->term
-Route::get('gestionar-factorpoi/buscar-apoi', 'poiFactorDynamicController@searchAPois')->name('poiFactorDynamic.searchAPois');
 
 //Obtener factores de poi seleccionado ->id&name
 Route::get('gestionar-factorpoi/traer-apoi', 'poiFactorDynamicController@getFacxsPoi')->name('poiFactorDynamic.getFacxsPoi');
@@ -232,6 +226,10 @@ Route::get('obtener-municipios', 'getGRecordsController@getMunicipios')->name('g
 
 Route::get('obtener-tipos-establecimientos', 'getGRecordsController@getTipos')->name('getGRecords.getTipos');
 
+Route::get('obtener-roles', 'getGRecordsController@getRoles')->name('getGRecords.getRoles');
+
+//Revisa si los pois tienen inicializados todos los factores activos [Loged]
+Route::get('advertencia-poixfactor', 'inspectPvFController@inspectPoivFactor')->name('inspectPvF.inspectPoivFactor');
 
 
 	//Crear storage-link accediendo a la dirección URL "storage-link"

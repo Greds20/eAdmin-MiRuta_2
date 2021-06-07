@@ -1,18 +1,18 @@
 <form>
-	<div class="dosColumnas">
+	<div class="dosColumnasL">
 		<div class="monoDiv">
 			<h3>Log</h3>
-			<textarea class="textarea" style="height: 435px;" id="log" readonly=""></textarea>
+			<textarea class="textarea" style="height: 427px;" id="log" readonly=""></textarea>
 		</div>
 		<div class="monoDiv monoDivButton">
 			<a href="#" id="downloadLog" onclick="downloadLog()" class="downloadButton" download="log.txt"><img src="{{ asset("img/icons/downloadIcon.png") }}"></a>
 		</div>
 	</div>
-	<div class="dosColumnas">
+	<div class="dosColumnasR">
 		<div class="monoDiv">
 			<h3>Alias</h3>
 			<div class="divInputxButton">
-				<input type="text" id="name" readonly="" style="width: 90%;" autocomplete="off">
+				<input type="text" id="name" class="inputSimple elementRM" readonly="" autocomplete="off" width="100%">
 				<a href="#" onclick="showPanel('#searchPanel')"><img src="{{ asset("img/icons/searchIcon.png") }}"></a>
 			</div>
 		</div>

@@ -19,6 +19,8 @@ class Administrador extends Model
 		'prapellido',
 		'sgapellido',
 		'contrasena',
+		'recuperador',
+		'tiempoRecuperador',
 		'estado',
 		'correo',
 		'fk_id_rol', 

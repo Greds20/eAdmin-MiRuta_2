@@ -35,7 +35,7 @@
 			input[0].value = valores[5].value;
 
 			var inputs = cell[5].getElementsByTagName("input");
-			inputs[0].checked = valores[6].value; 
+			inputs[0].checked = (valores[6].value == "1") ? true : false; 
 			if(i<canSFReg.value){
 				$(inputs[0]).removeAttr('disabled');
 			}

@@ -62,23 +62,17 @@
 
 @section('script')
 	@switch($section)
-		@case("modificar")
-			@include('scripts.adminPoiFactor.modify.selectedPoiList')
-			@include('scripts.adminPoiFactor.modify.fillNullPoiList')
-			@include('scripts.adminPoiFactor.modify.searchPoi')
-
-		@break
-
 		@case("emparejar")
 			@include('scripts.adminPoiFactor.match.getPoisNoF')
-			@include('scripts.adminPoiFactor.match.selectedPoiList')
-
 		@break
 
-		@case("consultar")
-			@include('scripts.adminPoiFactor.consult.selectedPoiList')
-			@include('scripts.adminPoiFactor.consult.searchPoi')
+		@case("modificar")
+			@include('scripts.adminPoiFactor.modify.fillNullPoiList')
+			@include('scripts.adminPoiFactor.modify.searchPoi')
+		@break		
 
+		@case("consultar")
+			@include('scripts.adminPoiFactor.consult.searchPoi')
 		@break
 
 		@default

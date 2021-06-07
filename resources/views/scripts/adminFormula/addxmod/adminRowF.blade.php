@@ -68,13 +68,13 @@
 			var checkbox = document.createElement('input');
 			checkbox.type = "hidden";
 			checkbox.name = "stateF[]";
-			checkbox.value = true;
+			checkbox.value = "1";
 			checkbox.id = "f"+nextRow;
 		checkboxV.value = "f"+nextRow;
 		newCell.appendChild(checkboxV);
 			newCell.appendChild(checkbox);
 		$(checkboxV).click(function() {
-			document.getElementById($(this).val()).value = $(this).is(":checked");
+			document.getElementById($(this).val()).value = ($(this).is(":checked")) ? "1" : "0";
 			listenerProm();
 	    });
 		newRow.appendChild(newCell);

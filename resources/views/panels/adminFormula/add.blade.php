@@ -83,15 +83,6 @@
 			      </th>
 			      <input type="hidden" id="nSfactorReg" value="1">
 			      <input type="hidden" name="nSfactor[]" required="" value="1">
-			      <div hidden="">
-			      	<input type="hidden" required="" value="0">
-			      	<input type="hidden" name="nameSF[]" required="" value="Estado de conservación">
-			      	<input type="hidden" name="descriptionSF[]" required="" value="Estado en el que se encuentra el PoI">
-			      	<input type="hidden" name="vminSF[]" required="" value="1">
-			      	<input type="hidden" name="vmaxSF[]" required="" value="3">
-			      	<input type="hidden" name="weightSF[]" required="" value="10">
-			      	<input type="hidden" name="stateSF[]" required="" value="true">
-			      </div>
 			    </tr>
 	      	</tbody>
 	    </table>

@@ -1,17 +1,17 @@
 <form method="POST" action="{{ route('poiFactorCrud.match') }}" enctype="multipart/form-data">
 	@csrf
 	<div class="monoDiv">
-		<h3>Nombre</h3>
+		<h3>Nombre del punto de interés</h3>
 		<input type="hidden" id="idpoi" name="idpoi" required="">
 		<input type="text" class="inputSimple" id="name" disabled="">
 	</div>
-	<div class="dosColumnas">
+	<div class="dosColumnasL">
 		<div class="scrollFacPoi scrollFacPoih1" id="factorOfSPoi">
 			<h1>PoI no seleccionado</h1>
 		</div>
 	</div>
-	<div class="dosColumnas">
-		<div class="divScrollAll">
+	<div class="dosColumnasR">
+		<div class="divScrollAll" style="height: 500px;">
 			<ul class="encontrados" id="listadoPois"></ul>
 		</div>
 	</div>

@@ -47,7 +47,7 @@
 			<h3>Buscar punto de interés</h3>
 			<input type="text" class="inputSimple" placeholder="Ingrese el nombre del punto de interés" id="searchName" autocomplete="off">
 		</div>
-		<div class="divScrollAll">
+		<div class="divScrollAll" style="height: 1079px;">
 			<ul class="encontrados listScrollAll" id="listadoPois"></ul>
 		</div>
 	</div>

@@ -39,9 +39,8 @@
 	</div>
 	<div class="divInputxButton rowsForm">
 		<input type="text" class="inputSimple elementRM" name="cy" maxlength="9" placeholder="Latitud" required="" id="cy" autocomplete="off" value="{{ old('cy') }}">
-		<a href="#" class="buttonBlue" id="btnShowSetCoord"><img src="{{ asset("img/icons/cordsIcon.png") }}"></a>
+		<a href="#" class="buttonBlue" id="btnShowSetCoord"><img src="{{ asset("img/icons/cordsSIcon.png") }}"></a>
 	</div>
-	
 	<div class="monoDiv">
 		<h3>Descripción</h3>
 		<textarea class="textarea" name="description" required="" maxlength="100" style="height: 100px;" id="description">{{ old('description') }}</textarea>

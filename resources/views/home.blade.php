@@ -17,7 +17,3 @@
 		@include('menuSection.homeMenu')
 	</div>
 @endsection
-
-@section('script')
-	<script src="js/main.js"></script>
-@endsection

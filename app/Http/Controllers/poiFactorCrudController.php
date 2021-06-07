@@ -4,8 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Poi;
-use App\Models\Formula;
-use App\Models\Poi_Formula;
+use App\Models\Factor;
+use App\Models\Poi_Factor;
 use App\Http\Requests\AdminPoiFactorRequest;
 use App\Models\Log;
 use Carbon\Carbon;
@@ -22,8 +22,8 @@ class poiFactorCrudController extends Controller
 
     	//Comprobar que el poi existe
     	$errorvPoi = false;
-    	$idpoi = Poi::select('id_poi')->where([['id_poi', '=', $requestV['idpoi']],['estado','=','true']])->get();
-    	if(empty($idpoi)){
+    	$idpoi = Poi::select('id_poi')->where([['id_poi', '=', $requestV['idpoi']],['estado','=',1]])->count();
+    	if($idpoi == 0){
     		$errorvPoi = true;
     	}
 
@@ -31,8 +31,8 @@ class poiFactorCrudController extends Controller
     	$errorvFactor = false;
     	$idTam = count($requestV['id']);
     	for($i=0; $i<$idTam; $i++){
-    		$idformulaValider = Formula::select('id_formula')->where([['id_formula','=',($requestV['id'])[$i]],['estado','=','true']])->get();
-    		if(empty($idformulaValider)){
+    		$idfactorValider = Factor::select('id_factor')->where([['id_factor','=',($requestV['id'])[$i]],['estado','=',1]])->get();
+    		if(empty($idfactorValider)){
     			$errorvFactor = true;
     			break;
     		}
@@ -46,8 +46,8 @@ class poiFactorCrudController extends Controller
 
 	    	//Comprobar que los valores de los factores estén dentro del limite
 	    	for($i=0; $i<$idTam; $i++){
-	    		$maxmin = Formula::select('valorminimo','valormaximo')->where('id_formula','=',($requestV['id'])[$i])->get();
-	    		if($maxmin[0]->valorminimo > ($requestV['valor'])[$i] || $maxmin[0]->valormaximo < ($requestV['valor'])[$i]){
+	    		$maxmin = Factor::select('valorMinimo','valorMaximo')->where('id_factor','=',($requestV['id'])[$i])->get();
+	    		if($maxmin[0]->valorMinimo > ($requestV['valor'])[$i] || $maxmin[0]->valorMaximo < ($requestV['valor'])[$i]){
 	    			$errorlimite = true;
 	    			break;
 	    		}
@@ -55,8 +55,8 @@ class poiFactorCrudController extends Controller
 
 	    	//Comprobar que factores del formulario no estén relacionados con el poi
 	    	for($i=0; $i<$idTam; $i++){
-	    		$PxF = Poi_Formula::select('valor')->where([['fk_id_poi','=',$requestV['idpoi']],['fk_id_formula','=', ($requestV['id'])[$i]]])->get();
-	    		if(count($PxF)>0){
+	    		$nPxF = Poi_Factor::select('valor')->where([['fk_id_poi','=',$requestV['idpoi']],['fk_id_factor','=', ($requestV['id'])[$i]]])->count();
+	    		if($nPxF>0){
 	    			$errorRelacion = true;
 	    			break;
 	    		}
@@ -75,15 +75,15 @@ class poiFactorCrudController extends Controller
             if($errorlimite)
                 array_push($errores, "El valor seleccionado de un factor sobrepasa el maximo y el minimo valor.");
             if($errorRelacion)
-                array_push($errores, "Los factores-PoI ya se encuentran emparejados.");
+                array_push($errores, "Los PoI-Factores ya se encuentran emparejados.");
             if($errorCIdxV)
                 array_push($errores, "La cantidad IDs y valores son diferentes.");
             return view('adminFactorPoi', ['section' => 'emparejar', 'errores' => $errores]);
         }else{
         	for($i=0; $i<$idTam; $i++){
-        		Poi_Formula::create([
-	            'fk_id_poi' => $idpoi[0]->id_poi,
-	            'fk_id_formula' => ($requestV['id'])[$i],
+        		Poi_Factor::create([
+	            'fk_id_poi' => $requestV['idpoi'],
+	            'fk_id_factor' => ($requestV['id'])[$i],
 	            'valor' => ($requestV['valor'])[$i]
 	        	]);
         	}
@@ -105,15 +105,14 @@ class poiFactorCrudController extends Controller
         
         //Comprobar que el id del poi existe
 
-        $poiCount = Poi::select('id_poi')->where([['id_poi','=',$requestV['idpoi']],['estado','=','true']])->count();
+        $poiCount = Poi::select('id_poi')->where([['id_poi','=',$requestV['idpoi']],['estado','=',1]])->count();
         $errorvPoi = ($poiCount==0) ? true : false;
 
         //Comprobar que el id de los factores existen
         $errorvFac = false;
         $idTam = count($requestV['id']);
         for ($i=0; $i < $idTam; $i++) { 
-            $facCount = Formula::select('id_formula')->where([['id_formula','=',($requestV['id'])[$i]],['estado','=','true']])->count();
-            
+            $facCount = Factor::select('id_factor')->where([['id_factor','=',($requestV['id'])[$i]],['estado','=',1]])->count();
             if($facCount==0){
                 $errorvFac = true;
                 break;
@@ -127,7 +126,7 @@ class poiFactorCrudController extends Controller
         if(!$errorvPoi && !$errorvFac){
             //Comprobar que los ids de los factores y poi estén relacionados en poi_formula  
             for ($i=0; $i < $idTam; $i++) { 
-                $poixFacCount = Poi_Formula::select('fk_id_formula')->where([['fk_id_poi','=',$requestV['idpoi']],['fk_id_formula','=',($requestV['id'])[$i]]])->count();
+                $poixFacCount = Poi_Factor::select('fk_id_factor')->where([['fk_id_poi','=',$requestV['idpoi']],['fk_id_factor','=',($requestV['id'])[$i]]])->count();
                 if($poixFacCount==0){
                     $errorvPoixFac = true;
                     break;
@@ -136,7 +135,7 @@ class poiFactorCrudController extends Controller
 
             //Comprobar que el valor está dentro de los limites
             for ($i=0; $i < $idTam; $i++) { 
-                $minmaxFac = Formula::select('valorminimo','valormaximo')->where('id_formula','=',($requestV['id'])[$i])->get();
+                $minmaxFac = Factor::select('valorMinimo','valorMaximo')->where('id_factor','=',($requestV['id'])[$i])->get();
                 if($minmaxFac[0]->valorminimo <= ($requestV['valor'])[$i] || $minmaxFac[0]->valormaximo >= ($requestV['id'])[$i]){
                 }else{
                     $errorvMinMax = true;
@@ -166,7 +165,7 @@ class poiFactorCrudController extends Controller
             return view('adminPoiFactor', ['section' => 'modificar', 'errores' => $errores]);
         }else{
             for($i = 0; $i < $idTam; $i++){
-                Poi_Formula::where([['fk_id_formula', '=', ($requestV['id'])[$i]],['fk_id_poi','=',$requestV['idpoi']]])->update([
+                Poi_Factor::where([['fk_id_factor', '=', ($requestV['id'])[$i]],['fk_id_poi','=',$requestV['idpoi']]])->update([
                     'valor' => ($requestV['valor'])[$i]
                 ]);
             }

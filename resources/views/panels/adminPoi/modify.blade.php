@@ -47,7 +47,7 @@
 				<input type="text" class="inputSimple" id="cy" name="cy" maxlength="9" placeholder="Latitud" required="" autocomplete="off">
 			</div>
 			<div style="width: 12%">
-				<a href="#" class="buttonBlue" id="btnShowSetCoord"><img src="{{ asset("img/icons/cordsIcon.png") }}" ></a>
+				<a href="#" class="buttonBlue" id="btnShowSetCoord"><img src="{{ asset("img/icons/cordsGIcon.png") }}" ></a>
 			</div>
 		</div>
 	</div>

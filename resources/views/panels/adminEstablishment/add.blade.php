@@ -21,12 +21,12 @@
 	<div class="rowsForm">
 		<h3>Coordenadas (decimales)</h3>
 		<div class="div2InputxButton">
-			<div style="width: 85%; margin-right: 10px;">
-				<input type="text" class="inputSimple" id="cx" name="cx" maxlength="9" placeholder="Longitud" required="" style="margin-bottom: 10px;" autocomplete="off" value="{{ old('cx') }}">
+			<div style="width: 85%;" class="elementRM">
+				<input type="text" class="inputSimple elementBM" id="cx" name="cx" maxlength="9" placeholder="Longitud" required="" autocomplete="off" value="{{ old('cx') }}">
 				<input type="text" class="inputSimple" id="cy" name="cy" maxlength="9" placeholder="Latitud" required="" autocomplete="off" value="{{ old('cy') }}">
 			</div>
 			<div style="width: 15%">
-				<a href="#" class="buttonBlue" id="btnShowSetCoord"><img src="{{ asset("img/icons/cordsIcon.png") }}"></a>
+				<a href="#" class="buttonBlue" id="btnShowSetCoord"><img src="{{ asset("img/icons/cordsGIcon.png") }}"></a>
 			</div>
 		</div>
 	</div>

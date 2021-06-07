@@ -10,6 +10,7 @@
 					id: $(this).attr('id')
 				},
 				success: function(data){
+					document.getElementById("alias").value = data[0].alias;
 					document.getElementById("name").innerHTML = data[0].prnombre + " " +data[0].sgnombre + " " + data[0].prapellido + " " + data[0].sgapellido;
 					document.getElementById("state").checked = data[0].estado;
 					document.getElementById("stateText").textContent = (data[0].estado) ? "Activo" : "Inactivo";

@@ -8,10 +8,10 @@
 			opt.value = 0;
 			opt.innerHTML = '-';
 			select.appendChild(opt);
-			for(var i=0; i<data[1].length;i++){
+			for(var i=0; i<data[3].length;i++){
 				var opt = document.createElement('option');
-				opt.value = (data[1])[i].id_seccion;
-				opt.innerHTML = (data[1])[i].nombre;
+				opt.value = (data[3])[i].ID_SECCION;
+				opt.innerHTML = (data[3])[i].nombre;
 				select.appendChild(opt);
 			}
 
@@ -20,16 +20,16 @@
 			opt.value = 0;
 			opt.innerHTML = '-';
 			select.appendChild(opt);
-			for(var i=0; i<data[0].length;i++){
+			for(var i=0; i<data[2].length;i++){
 				var opt = document.createElement('option');
-				opt.value = (data[0])[i].id_evento;
-				opt.innerHTML = (data[0])[i].nombre;
+				opt.value = (data[2])[i].ID_EVENTO;
+				opt.innerHTML = (data[2])[i].nombre;
 				select.appendChild(opt);
 			}
-			document.getElementById('from').min = data.inicio;
-			document.getElementById('from').max = data.fin;
-			document.getElementById('to').min = data.inicio;
-			document.getElementById('to').max = data.fin;
+			document.getElementById('from').min = (data[0])[0].fecha;
+			document.getElementById('from').max = (data[1])[0].fecha;
+			document.getElementById('to').min = (data[0])[0].fecha;
+			document.getElementById('to').max = (data[1])[0].fecha;
 		}
 	});
 </script>

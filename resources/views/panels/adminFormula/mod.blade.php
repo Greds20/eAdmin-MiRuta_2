@@ -5,7 +5,7 @@
 			<h3>Fórmula</h3>
 			<div class="divInputxButton">
 				<input type="hidden" id="idform" name="idform" required="" maxlength="20" required="">
-				<input type="text" id="nameForm" name="nameForm" style="width: 93%;" autocomplete="off">
+				<input type="text" id="nameForm" name="nameForm" autocomplete="off" class="inputSimple elementRM" width="100%">
 				<a href="#" onclick="showPanel('#itemShowPanel')"><img src="{{ asset("img/icons/searchIcon.png") }}"></a>
 			</div>
 		</div>

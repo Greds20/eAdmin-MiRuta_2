@@ -20,7 +20,7 @@
 				<li><a href="{{ route('inventary') }}"><img src="{{ asset("img/icons/inventaryIcon.png") }}" alt="IMG"></a></li>
 				<li><a href="{{ route('formulaCrud.redirecToSection', "agregar") }}"><img src="{{ asset("img/icons/formulaIcon.png") }}" alt="IMG"></a></li>
 			</ul>
-			<a href="#"><img src="{{ asset("img/icons/configIcon.png") }}" alt="IMG" style="height: 62px; width: 62px;"></a>
+			<a href="#"><img src="{{ asset("img/icons/logoutIcon.png") }}" alt="IMG" style="height: 62px; width: 62px;"></a>
 		</div>
 		<div class="verticalDiv">
 			<div class="menuHori">

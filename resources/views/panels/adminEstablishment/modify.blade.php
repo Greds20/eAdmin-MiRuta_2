@@ -31,7 +31,7 @@
 	</div>
 	<div class="divInputxButton rowsForm">
 		<input type="text" class="inputSimple elementRM" name="cy" id="cy" maxlength="9" placeholder="Latitud" required="" autocomplete="off">
-		<a href="#" class="buttonBlue" id="btnShowSetCoord"><img src="{{ asset("img/icons/cordsIcon.png") }}"></a>
+		<a href="#" class="buttonBlue" id="btnShowSetCoord"><img src="{{ asset("img/icons/cordsSIcon.png") }}"></a>
 	</div>
 	<div class="monoDiv">
 		<h3>Descripción</h3>

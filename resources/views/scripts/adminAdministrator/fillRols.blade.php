@@ -1,6 +1,6 @@
 <script type="text/javascript">
     $.ajax({
-		url: "{{route('administradoresDynamic.fillRoles')}}",
+		url: "{{route('getGRecords.getRoles')}}",
 		type: 'GET',
 		success: function(data){
 			var select = document.getElementById('rol');

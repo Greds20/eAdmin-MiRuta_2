@@ -9,9 +9,9 @@
 			},
 			success: function(data){
 				//Llenar datos de formula
-				document.getElementById("stateFormV").checked = data[3].estado;
-				document.getElementById("stateForm").value = (data[3].estado) ? 'true' : 'false';
-				document.getElementById("stateText").textContent = (data[3].estado) ? "Activo" : "Inactivo";
+				document.getElementById("stateFormV").checked = (data[3].estado=="1") ? "true" : "false";
+				document.getElementById("stateForm").value = data[3].estado;
+				document.getElementById("stateText").textContent = (data[3].estado=="1") ? "Activo" : "Inactivo";
 				document.getElementById("descForm").innerHTML = data[3].descripcion;
 
 				//Llenar tabla de factores
@@ -47,15 +47,14 @@
 
 					var inputs = cell[5].getElementsByTagName("input");
 					$(inputs[0]).removeAttr('disabled');
-					inputs[0].checked = (data[0])[i].estado; 
-					inputs[1].value = ((data[0])[i].estado) ? "true" : "false";
+					inputs[0].checked = ((data[0])[i].estado=="1") ? true : false; 
+					inputs[1].value = (data[0])[i].estado;
 				}
 
 				//Llenar tabla de variables
 				(document.getElementById('nVariableGet')).value = data[1].length;
 				var tbody = document.getElementById('variableReg');
 				$(tbody).empty();
-
 				for(var i=0; i<data[1].length; i++){
 					addRowV();
 					var rows = tbody.getElementsByTagName("tr");
@@ -81,7 +80,6 @@
 					rows[i].querySelector("[name='nSfactor[]']").value = cont;
 
 					var cell = rows[i].getElementsByTagName("th");
-
 					var inputs = cell[0].getElementsByTagName("input");
 						var fieldID = document.createElement('input');
 						fieldID.type = "hidden";
@@ -99,8 +97,8 @@
 
 					var inputs = cell[4].getElementsByTagName("input");
 					$(inputs[0]).removeAttr('disabled');
-					inputs[0].checked = (data[1])[i].estado;
-					inputs[1].value = ((data[1])[i].estado) ? "true" : "false";
+					inputs[0].checked = ((data[1])[i].estado == "1") ? true : false;
+					inputs[1].value = (data[1])[i].estado;
 				}
 				hidePanel('#itemShowPanel');
 				listenerProm();

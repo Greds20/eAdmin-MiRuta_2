@@ -14,13 +14,14 @@
 	<div class="limiterLoged horizontalDiv">
 		<div class="menuVert">
 			<ul>
-				<li><a href="{{ route('cuentaCrud.redirecToAccount', "SISTEMA") }}" class="perfilPanel"><img src="{{ asset("img/icons/adminSIsIcon.png") }}" alt="IMG"><div><h3>SISTEMA</h3><span>Rol: Administrador del sistema</span><span>Nombre: Guillermo Andrés Rojas Acosta</span></div></a></li>
-				<li><a href="{{ route('administradorCrud.redirecToSection', "agregar") }}"><img src="{{ asset("img/icons/usersIcon.png") }}" alt="IMG"></a></li>
-				<li><a href="{{ route('log') }}"><img src="{{ asset("img/icons/monitorIcon.png") }}" alt="IMG"></a></li>
-				<li><a href="{{ route('inventary') }}"><img src="{{ asset("img/icons/inventaryIcon.png") }}" alt="IMG"></a></li>
-				<li><a href="{{ route('formulaCrud.redirecToSection', "agregar") }}"><img src="{{ asset("img/icons/formulaIcon.png") }}" alt="IMG"></a></li>
+				<li><a href="{{ route('cuentaCrud.redirecToAccount', "SISTEMA") }}" class="perfilPanel"><img src="{{ asset("img/icons/adminSIsIcon.png") }}" alt="IMG"><div><h3>{{ (session('usuario'))['alias'] }}</h3><span>Rol: {{ ((session('usuario'))['FK_ID_ROL'] == 1) ? "Administrador del sistema" : "Administrador del inventario turístico"}}</span><span>Nombre: {{ (session('usuario'))['prNombre']." ".(session('usuario'))['sgNombre']." ".(session('usuario'))['prApellido']." ".(session('usuario'))['sgApellido'] }}</span></div></a></li>
+				<li><a href="{!! ((session('usuario'))['FK_ID_ROL'] == 1) ? route('administradorCrud.redirecToSection', "agregar") : "#" !!}"><img src="{{ asset("img/icons/usersIcon.png") }}" alt="IMG"></a></li>
+				<li><a href="{!! ((session('usuario'))['FK_ID_ROL'] == 1) ? route('log') : "#" !!}"><img src="{{ asset("img/icons/monitorIcon.png") }}" alt="IMG"></a></li>
+				<li><a href="{!! ((session('usuario'))['FK_ID_ROL'] == 2) ? route('inventary') : "#" !!}"><img src="{{ asset("img/icons/inventaryIcon.png") }}" alt="IMG"></a></li>
+				<li><a href="{!! ((session('usuario'))['FK_ID_ROL'] == 2) ? route('formulaCrud.redirecToSection', "agregar") : "#" !!}"><img src="{{ asset("img/icons/formulaIcon.png") }}" alt="IMG"></a></li>
 			</ul>
-			<a href="#"><img src="{{ asset("img/icons/logoutIcon.png") }}" alt="IMG" style="height: 62px; width: 62px;"></a>
+			<a href="#" onclick="event.preventDefault(); document.getElementById('logoutForm').submit();"><img src="{{ asset("img/icons/logoutIcon.png") }}" alt="IMG" style="height: 62px; width: 62px;"></a>
+			<form id="logoutForm" action="{{ route('logout') }}" method="POST" style="display: none;">@csrf</form>
 		</div>
 		<div class="verticalDiv">
 			<div class="menuHori">

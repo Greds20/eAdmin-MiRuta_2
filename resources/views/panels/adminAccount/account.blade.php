@@ -1,4 +1,4 @@
-<form method="POST" action="{{ route('cuentaCrud.updatePublic', ["alias"=>$infoAdmin->alias]) }}" enctype="multipart/form-data">
+<form method="POST" action="{{ route('cuentaCrud.updatePersonal', ["alias"=>$infoAdmin->alias]) }}" enctype="multipart/form-data">
 	@csrf
 	<div class="monoDiv">
 		<h3 class="titleH3Form">Información personal</h3>

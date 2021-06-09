@@ -3,8 +3,7 @@
 use Illuminate\Support\Facades\Route;
 
 //Visualizar paginas simples--------------------------
-Route::view('/', 'login')->name('login');
-Route::view('/inicio', 'home')->name('home');
+
 Route::view('/inventario', 'inventary')->name('inventary');
 Route::view('/log', 'log')->name('log');
 
@@ -247,3 +246,14 @@ Route::get('storage-link', function(){
 
 //Autenticacion------------------------
 Auth::routes();
+
+
+Route::post('login', 'Auth\LoginController@login')->name('login');
+
+Route::post('logout', 'Auth\LoginController@logout')->name('logout');
+
+Route::group(['middleware'=>['AuthCheck']], function(){
+	Route::get('/', 'Auth\LoginController@showLoginForm');
+
+	Route::view('/inicio', 'home')->name('home');
+});

@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use App\Models\Log;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Hash;
 
 class administradorCrudController extends Controller
 {
@@ -64,7 +65,7 @@ class administradorCrudController extends Controller
                 'sgnombre' => $requestV["scname"],
                 'prapellido' => $requestV["frsurname"],
                 'sgapellido' => $requestV["scsurname"],
-                'contrasena' => $requestV["pass"],
+                'contrasena' => Hash::make($requestV["pass"]),
                 'recuperador' => "0",
                 'tiempoRecuperador' => "2000-01-01 00:00:00",
                 'correo' => $requestV["email"],
@@ -107,7 +108,7 @@ class administradorCrudController extends Controller
         $errorvId = false;
         $errorAlias = false;
         $errorvSis = false;
-        $admin = Administrador::select('id_administrador','alias','correo')->where('id_administrador','=',$requestV['id'])->get();        //COnsigue ID y correo
+        $admin = Administrador::select('id_administrador','alias','correo')->where('id_administrador','=',$requestV['id'])->get();        //Consigue ID y correo
         if(count($admin)>0){
             //Comprobar que el alias no se repite
             $nctAlias = Administrador::select('alias')->where([['id_administrador','<>',$requestV['id']],['alias','=',$requestV['alias']]])->count();
@@ -130,21 +131,6 @@ class administradorCrudController extends Controller
                 array_push($errores, "No tiene permisos para modificar el usuario SISTEMA.");
             return view('adminAdministrator', ['section' => 'modificar', 'errores' => $errores]);
         }else{
-            // if(isset($requestV["recover"])){
-            //     $pass = $this->randomPass();
-            //     $msgfirst = "Le informamos que su solicitud de cambio de contraseña se realizo con exito.";
-            //     $msglast = "Le recomendamos cambiar prontamente la contraseña.";
-            //     $contend = [ 'subject' => 'Recuperación de contraseña', 'alias' => $requestV["alias"], 'pass' => $pass, 'messagefirst' => $msgfirst, 'messagelast' => $msglast ];
-            //     Mail::to($admin[0]->correo)->queue(new eAdminMail($contend));
-            //     //return new eAdminMail($contend);
-            //     // Administrador::where('id_administrador', $requestV["id"])->update([
-            //     //     'alias' => $requestV["alias"],
-            //     //     'contrasena' => $pass,
-            //     //     'estado' => $requestEx["state"]
-            //     // ]);
-            // }else{
-                
-            // }
             Administrador::where('id_administrador', $requestV["id"])->update([
                     'alias' => $requestV["alias"],
                     'estado' => $requestV["state"]

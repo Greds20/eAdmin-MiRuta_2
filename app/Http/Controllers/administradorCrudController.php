@@ -65,7 +65,7 @@ class administradorCrudController extends Controller
                 'sgnombre' => $requestV["scname"],
                 'prapellido' => $requestV["frsurname"],
                 'sgapellido' => $requestV["scsurname"],
-                'contrasena' => Hash::make($requestV["pass"]),
+                'contrasena' => MD5($requestV["pass"]),
                 'recuperador' => "0",
                 'tiempoRecuperador' => "2000-01-01 00:00:00",
                 'correo' => $requestV["email"],

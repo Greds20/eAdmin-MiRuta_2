@@ -32,7 +32,7 @@ class LoginController extends Controller
         if(!$user){
             return back()->withErrors(['errors' => 'No se encuentra el alias.'])->withInput(request(['alias']));
         }else{
-            if(Hash::check($request['password'], $user->contrasena)){
+            if(MD5($request['password'], $user->contrasena)){
                 $request->session()->put('usuario', $user);
                 return redirect()->route('home');
             }else{
